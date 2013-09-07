@@ -15,19 +15,26 @@ static TPSinaWeiboAccountService * accountService = nil;
 +(id)sharedInstance
 {
     if (!accountService) {
-        accountService = [[TPSinaWeiboAccountService alloc] initWithAppKey:kAppKey appSecret:kAppSecret appRedirectURI:kAppRedirectURI ssoCallbackScheme:nil];
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSDictionary *sinaweiboInfo = [defaults objectForKey:kTPSinaWeiboEngineKeyAuthData];
-        if ([sinaweiboInfo objectForKey:@"AccessTokenKey"] && [sinaweiboInfo objectForKey:@"ExpirationDateKey"] && [sinaweiboInfo objectForKey:@"UserIDKey"])
-        {
-            accountService.accessToken = [sinaweiboInfo objectForKey:@"AccessTokenKey"];
-            accountService.expirationDate = [sinaweiboInfo objectForKey:@"ExpirationDateKey"];
-            accountService.userID = [sinaweiboInfo objectForKey:@"UserIDKey"];
-        }
+        accountService = [[TPSinaWeiboAccountService alloc] init];
     }
     return accountService;
 }
-
+- (id)init
+{
+    self = [self initWithAppKey:kAppKey appSecret:kAppSecret appRedirectURI:kAppRedirectURI ssoCallbackScheme:nil];
+    if (self) {
+        // 读取存储的账号登录信息 ( weak login )
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSDictionary *sinaweiboInfo = [defaults objectForKey:kTPSinaWeiboEngineAuthDataKey];
+        if ([sinaweiboInfo objectForKey:kTPSinaWeiboEngineAccessTokenKey] && [sinaweiboInfo objectForKey:kTPSinaWeiboEngineExpirationDateKey] && [sinaweiboInfo objectForKey:kTPSinaWeiboEngineUserIDKey])
+        {
+            accountService.accessToken = [sinaweiboInfo objectForKey:kTPSinaWeiboEngineAccessTokenKey];
+            accountService.expirationDate = [sinaweiboInfo objectForKey:kTPSinaWeiboEngineExpirationDateKey];
+            accountService.userID = [sinaweiboInfo objectForKey:kTPSinaWeiboEngineUserIDKey];
+        }
+    }
+    return self;
+}
 - (id)initWithAppKey:(NSString *)appKey appSecret:(NSString *)appSecrect
       appRedirectURI:(NSString *)appRedirectURI
    ssoCallbackScheme:(NSString *)ssoCallbackScheme
@@ -191,11 +198,12 @@ static TPSinaWeiboAccountService * accountService = nil;
 
              [self handleResponseData:responseData];
              
-             //NSLog(@"返回结果%@",responseString);
+             self.loginResultHandler(TPSinaWeiboAccountLoginDidSuccess);  // 登录成功回调
              
          }
          else
          {
+             self.loginResultHandler(TPSinaWeiboAccountLoginDidFail);  // 登录失败回调
              NSLog(@"请求accessToken失败");
          }
          
@@ -235,20 +243,40 @@ static TPSinaWeiboAccountService * accountService = nil;
     }
 }
 
+- (void)logInDidFailWithErrorInfo:(NSDictionary *)errorInfo
+{
+    NSString *error_code = [errorInfo objectForKey:@"error_code"];
+    if ([error_code isEqualToString:@"21330"])
+    {
+        //[self logInDidCancel];
+    }
+    else
+    {
+        NSString *error_description = [errorInfo objectForKey:@"error_description"];
+        NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
+                                  errorInfo, @"error",
+                                  error_description, NSLocalizedDescriptionKey, nil];
+        NSError *error = [NSError errorWithDomain:kSinaWeiboSDKErrorDomain
+                                             code:[error_code intValue]
+                                         userInfo:userInfo];
+        
+        self.loginResultHandler(TPSinaWeiboAccountLoginDidFail);  // 登录失败回调
+    }
+}
 - (void)removeAuthDataFromUserDefaults
 {
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTPSinaWeiboEngineKeyAuthData];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kTPSinaWeiboEngineAuthDataKey];
 }
 
 - (void)storeAuthDataToUserDefaults
 {
     NSDictionary *authData = [NSDictionary dictionaryWithObjectsAndKeys:
-                              self.accessToken, @"AccessTokenKey",
-                              self.expirationDate, @"ExpirationDateKey",
-                              self.userID, @"UserIDKey",
-                              self.refreshToken, @"refresh_token", nil];
+                              self.accessToken, kTPSinaWeiboEngineAccessTokenKey,
+                              self.expirationDate, kTPSinaWeiboEngineExpirationDateKey,
+                              self.userID, kTPSinaWeiboEngineUserIDKey,
+                              self.refreshToken, kTPSinaWeiboEngineRefreshTokenKey, nil];
     
-    [[NSUserDefaults standardUserDefaults] setObject:authData forKey:kTPSinaWeiboEngineKeyAuthData];
+    [[NSUserDefaults standardUserDefaults] setObject:authData forKey:kTPSinaWeiboEngineAuthDataKey];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

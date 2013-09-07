@@ -282,15 +282,15 @@
 			children = (
 				F49C30A417DB564D007836C4 /* ASIHttpRequest */,
 				F49C30E017DB564D007836C4 /* ResourceRequest */,
-				F49C30E317DB564D007836C4 /* TPNetworkManager.h */,
-				F49C30E417DB564D007836C4 /* TPNetworkManager.m */,
+				F49C30EA17DB564D007836C4 /* TPSinaWeiboEngine.h */,
+				F49C30EB17DB564D007836C4 /* TPSinaWeiboEngine.m */,
 				F49C30E517DB564D007836C4 /* TPSinaWeiboAccountService.h */,
 				F49C30E617DB564D007836C4 /* TPSinaWeiboAccountService.m */,
+				F49C30E317DB564D007836C4 /* TPNetworkManager.h */,
+				F49C30E417DB564D007836C4 /* TPNetworkManager.m */,
 				F49C30E717DB564D007836C4 /* TPSinaWeiboCommonFuction.h */,
 				F49C30E817DB564D007836C4 /* TPSinaWeiboCommonFuction.m */,
 				F49C30E917DB564D007836C4 /* TPSinaWeiboConst.h */,
-				F49C30EA17DB564D007836C4 /* TPSinaWeiboEngine.h */,
-				F49C30EB17DB564D007836C4 /* TPSinaWeiboEngine.m */,
 			);
 			path = TPSinaWeiboSDK;
 			sourceTree = "<group>";

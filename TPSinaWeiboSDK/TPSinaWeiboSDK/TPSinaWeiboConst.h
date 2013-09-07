@@ -46,7 +46,11 @@ typedef enum
 
 /*
         常量 - Key
- */
-#define kTPSinaWeiboEngineKeyAuthData       @"kTPSinaWeiboEngineKeyAuthData"
+*/
+#define kTPSinaWeiboEngineAuthDataKey          @"kTPSinaWeiboEngineAuthDataKey"
+#define kTPSinaWeiboEngineAccessTokenKey       @"kTPSinaWeiboEngineAccessTokenKey"
+#define kTPSinaWeiboEngineUserIDKey            @"kTPSinaWeiboEngineUserIDKey"
+#define kTPSinaWeiboEngineExpirationDateKey    @"kTPSinaWeiboEngineExpirationDateKey"
+#define kTPSinaWeiboEngineRefreshTokenKey      @"kTPSinaWeiboEngineRefreshTokenKey"
 
 #endif

@@ -27,7 +27,7 @@
 
 -(void)ButtonClicked:(id)sender
 {
-    [[TPSinaWeiboAccountService sharedInstance] Login];
+    [[TPSinaWeiboEngine sharedInstance] Login];
 }
 
 - (void)didReceiveMemoryWarning
