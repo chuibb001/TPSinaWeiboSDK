@@ -191,7 +191,7 @@ static TPSinaWeiboAccountService * accountService = nil;
 {
     NSDictionary *params = @{@"client_id":self.appKey,@"client_secret":self.appSecret,@"grant_type":@"authorization_code",@"redirect_uri":self.appRedirectURI,@"code":code};
     
-    [[TPNetworkManager sharedInstance] requestWithAccessToken:nil URL:kSinaWeiboWebAccessTokenURL httpMethod:@"POST" params:params completionHandler:^(NSData *responseData,int httpStatusCode)
+    [[TPNetworkManager sharedInstance] requestWithURL:kSinaWeiboWebAccessTokenURL httpMethod:@"POST" params:params completionHandler:^(NSData *responseData,int httpStatusCode)
      {
          if(httpStatusCode == 200)
          {

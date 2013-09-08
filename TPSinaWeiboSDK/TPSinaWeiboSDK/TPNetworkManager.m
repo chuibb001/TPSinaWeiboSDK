@@ -20,18 +20,16 @@ static TPNetworkManager * networkManager = nil;
     return networkManager;
 }
 
--(void)requestWithAccessToken:(NSString *)accessToken URL:(NSString *)urlString httpMethod:(NSString *)httpMethod params:(NSDictionary *)params completionHandler:(TPNetworkManagerHandler)handler
+-(void)requestWithURL:(NSString *)urlString httpMethod:(NSString *)httpMethod params:(NSDictionary *)params completionHandler:(TPNetworkManagerHandler)handler
 {
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
     
-    if(accessToken)  // 请求令牌
-       [request setPostValue:accessToken forKey:@"access_token"];
-    
+    if([httpMethod isEqualToString:@"POST"]){
     for(NSString *key in [params allKeys]) // 设置参数
     {
         [request setPostValue:[params objectForKey:key] forKey:key];
     }
-    
+    }
     [request setRequestMethod:httpMethod];
     
     __weak ASIFormDataRequest *weakRequest = request; // 防止cycle

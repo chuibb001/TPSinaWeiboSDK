@@ -28,7 +28,7 @@ static TPSinaWeiboEngine *instance = nil;
 {
     self = [super init];
     if (self) {
-        self.accountServeice = [[TPSinaWeiboAccountService alloc] init];
+        self.accountServeice = [TPSinaWeiboAccountService sharedInstance];
     }
     return self;
 }
@@ -49,5 +49,14 @@ static TPSinaWeiboEngine *instance = nil;
     };
     
     [self.accountServeice Login];
+}
+
+- (void)getUserInfo
+{
+    TPSinaWeiboRequest * request = [[TPSinaWeiboUserInfoRequest alloc] init];
+    [request requestWithCompletionHandler:^(id responseData , TPSinaWeiboRequestErrorCode errorCode)
+    {
+        NSLog(@"Engine:%@",responseData);
+    }];
 }
 @end

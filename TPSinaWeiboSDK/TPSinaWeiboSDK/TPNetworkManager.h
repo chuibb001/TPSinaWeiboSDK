@@ -15,6 +15,6 @@ typedef void(^TPNetworkManagerHandler)(NSData *responseData,int httpStatusCode);
 @interface TPNetworkManager : NSObject
 
 +(id)sharedInstance;
--(void)requestWithAccessToken:(NSString *)accessToken URL:(NSString *)urlString httpMethod:(NSString *)httpMethod params:(NSDictionary *)params completionHandler:(TPNetworkManagerHandler)handler;
+-(void)requestWithURL:(NSString *)urlString httpMethod:(NSString *)httpMethod params:(NSDictionary *)params completionHandler:(TPNetworkManagerHandler)handler;
 
 @end

@@ -59,6 +59,7 @@
 		F49C310617DB564D007836C4 /* TPSinaWeiboAccountService.m in Sources */ = {isa = PBXBuildFile; fileRef = F49C30E617DB564D007836C4 /* TPSinaWeiboAccountService.m */; };
 		F49C310717DB564D007836C4 /* TPSinaWeiboCommonFuction.m in Sources */ = {isa = PBXBuildFile; fileRef = F49C30E817DB564D007836C4 /* TPSinaWeiboCommonFuction.m */; };
 		F49C310817DB564D007836C4 /* TPSinaWeiboEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = F49C30EB17DB564D007836C4 /* TPSinaWeiboEngine.m */; };
+		F4FC736E17DC828D00ED7D5E /* TPSinaWeiboUserInfoRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F4FC736D17DC828D00ED7D5E /* TPSinaWeiboUserInfoRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -159,6 +160,8 @@
 		F49C30E917DB564D007836C4 /* TPSinaWeiboConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboConst.h; sourceTree = "<group>"; };
 		F49C30EA17DB564D007836C4 /* TPSinaWeiboEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboEngine.h; sourceTree = "<group>"; };
 		F49C30EB17DB564D007836C4 /* TPSinaWeiboEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSinaWeiboEngine.m; sourceTree = "<group>"; };
+		F4FC736C17DC828D00ED7D5E /* TPSinaWeiboUserInfoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboUserInfoRequest.h; sourceTree = "<group>"; };
+		F4FC736D17DC828D00ED7D5E /* TPSinaWeiboUserInfoRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSinaWeiboUserInfoRequest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -415,6 +418,8 @@
 			children = (
 				F49C30E117DB564D007836C4 /* TPSinaWeiboRequest.h */,
 				F49C30E217DB564D007836C4 /* TPSinaWeiboRequest.m */,
+				F4FC736C17DC828D00ED7D5E /* TPSinaWeiboUserInfoRequest.h */,
+				F4FC736D17DC828D00ED7D5E /* TPSinaWeiboUserInfoRequest.m */,
 			);
 			path = ResourceRequest;
 			sourceTree = "<group>";
@@ -524,6 +529,7 @@
 				F49C310617DB564D007836C4 /* TPSinaWeiboAccountService.m in Sources */,
 				F49C310717DB564D007836C4 /* TPSinaWeiboCommonFuction.m in Sources */,
 				F49C310817DB564D007836C4 /* TPSinaWeiboEngine.m in Sources */,
+				F4FC736E17DC828D00ED7D5E /* TPSinaWeiboUserInfoRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
