@@ -25,11 +25,12 @@ static TPNetworkManager * networkManager = nil;
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
     
     if([httpMethod isEqualToString:@"POST"]){
-    for(NSString *key in [params allKeys]) // 设置参数
-    {
-        [request setPostValue:[params objectForKey:key] forKey:key];
+        for(NSString *key in [params allKeys]) // 设置参数
+        {
+            [request setPostValue:[params objectForKey:key] forKey:key];
+        }
     }
-    }
+    
     [request setRequestMethod:httpMethod];
     
     __weak ASIFormDataRequest *weakRequest = request; // 防止cycle

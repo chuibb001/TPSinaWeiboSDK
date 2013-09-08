@@ -28,9 +28,9 @@ static TPSinaWeiboAccountService * accountService = nil;
         NSDictionary *sinaweiboInfo = [defaults objectForKey:kTPSinaWeiboEngineAuthDataKey];
         if ([sinaweiboInfo objectForKey:kTPSinaWeiboEngineAccessTokenKey] && [sinaweiboInfo objectForKey:kTPSinaWeiboEngineExpirationDateKey] && [sinaweiboInfo objectForKey:kTPSinaWeiboEngineUserIDKey])
         {
-            accountService.accessToken = [sinaweiboInfo objectForKey:kTPSinaWeiboEngineAccessTokenKey];
-            accountService.expirationDate = [sinaweiboInfo objectForKey:kTPSinaWeiboEngineExpirationDateKey];
-            accountService.userID = [sinaweiboInfo objectForKey:kTPSinaWeiboEngineUserIDKey];
+            self.accessToken = [sinaweiboInfo objectForKey:kTPSinaWeiboEngineAccessTokenKey];
+            self.expirationDate = [sinaweiboInfo objectForKey:kTPSinaWeiboEngineExpirationDateKey];
+            self.userID = [sinaweiboInfo objectForKey:kTPSinaWeiboEngineUserIDKey];
         }
     }
     return self;
@@ -90,6 +90,7 @@ static TPSinaWeiboAccountService * accountService = nil;
 {
     if ([self isAuthValid])
     {
+        self.loginResultHandler(TPSinaWeiboAccountLoginDidSuccess);  // 登录成功回调
         return ;
     }
     

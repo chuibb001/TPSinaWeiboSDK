@@ -53,4 +53,11 @@ typedef enum
 #define kTPSinaWeiboEngineExpirationDateKey    @"kTPSinaWeiboEngineExpirationDateKey"
 #define kTPSinaWeiboEngineRefreshTokenKey      @"kTPSinaWeiboEngineRefreshTokenKey"
 
+/*
+        常量 - Notification
+ */
+#define kTPSinaWeiboEngineLoginDidSuccessNotification       @"kTPSinaWeiboEngineLoginDidSuccessNotification"
+#define kTPSinaWeiboEngineLoginDidSuccessNotification       @"kTPSinaWeiboEngineLoginDidSuccessNotification"
+#define kTPSinaWeiboEngineLoginDidSuccessNotification       @"kTPSinaWeiboEngineLoginDidSuccessNotification"
+#define kTPSinaWeiboEngineLoginDidSuccessNotification       @"kTPSinaWeiboEngineLoginDidSuccessNotification"
 #endif

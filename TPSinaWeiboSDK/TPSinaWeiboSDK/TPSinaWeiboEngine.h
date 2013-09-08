@@ -17,7 +17,7 @@
 
 @property (nonatomic, strong) TPSinaWeiboAccountService *accountServeice;
 
-
+@property (nonatomic, strong) NSString *const TPSinaWeiboEngineLoginDidSuccessNotification;
 
 //    返回单例
 + (id)sharedInstance;
