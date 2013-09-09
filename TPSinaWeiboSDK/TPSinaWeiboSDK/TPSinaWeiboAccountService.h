@@ -19,8 +19,6 @@ typedef enum
 }
 TPSinaWeiboAccountStatus;
 
-typedef void(^TPSinaWeiboAccountServiceHanlder)(TPSinaWeiboAccountStatus status);
-
 @interface TPSinaWeiboAccountService : NSObject<SinaWeiboAuthorizeViewDelegate>
 
 @property (nonatomic, strong) NSString *userID;
@@ -32,7 +30,6 @@ typedef void(^TPSinaWeiboAccountServiceHanlder)(TPSinaWeiboAccountStatus status)
 @property (nonatomic, strong) NSString *appSecret;
 @property (nonatomic, strong) NSString *appRedirectURI;
 @property (nonatomic, assign) BOOL  ssoLoggingIn;
-@property (nonatomic, assign) TPSinaWeiboAccountServiceHanlder loginResultHandler;
 
 +(id)sharedInstance;
 -(void)Login;

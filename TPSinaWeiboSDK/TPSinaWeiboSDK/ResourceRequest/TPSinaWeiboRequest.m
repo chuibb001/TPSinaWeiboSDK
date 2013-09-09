@@ -21,23 +21,22 @@
     return self;
 }
 
--(void)requestWithCompletionHandler:(TPSinaWeiboRequestHandler)handler
+-(void)request
 {
     if(!self.accessToken)
     {
-        handler(nil,TPSinaWeiboRequestErrorCodeAccessTokenNeeded);
         return ;
     }
     
     if(!self.urlPostfix)
     {
-        handler(nil,TPSinaWeiboRequestErrorCodeURLIncompleted);
         return ;
     }
     
     NSString *fullURL = [kSinaWeiboSDKAPIDomain stringByAppendingString:self.urlPostfix];
     
-    fullURL = [TPSinaWeiboCommonFuction serializeURL:fullURL
+    if([self.httpMethod isEqualToString:@"GET"]) // GET的参数跟在URL后面
+        fullURL = [TPSinaWeiboCommonFuction serializeURL:fullURL
                                                            params:[self requestParamsDictionary] httpMethod:self.httpMethod];
     
     // 请求数据
@@ -48,12 +47,10 @@
              
              id decodedResponseData = [self decodeResponseJsonObject:responseData]; // 解析JSON
              
-             handler(decodedResponseData,TPSinaWeiboRequestErrorCodeNone);  // 成功回调
-             
+             NSLog(@"解析JSON后:%@",decodedResponseData);
          }
          else
          {
-             handler(nil,TPSinaWeiboRequestErrorCodeFailToFetch);  // 失败回调
              NSLog(@"请求资源失败 %d",httpStatusCode);
          }
          

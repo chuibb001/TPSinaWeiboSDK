@@ -24,11 +24,20 @@ static TPNetworkManager * networkManager = nil;
 {
     ASIFormDataRequest *request = [ASIFormDataRequest requestWithURL:[NSURL URLWithString:urlString]];
     
-    if([httpMethod isEqualToString:@"POST"]){
+    if([httpMethod isEqualToString:@"POST"])
+    {
         for(NSString *key in [params allKeys]) // 设置参数
         {
-            [request setPostValue:[params objectForKey:key] forKey:key];
+            if([[params objectForKey:key] isKindOfClass:[NSString class]])
+                [request setPostValue:[params objectForKey:key] forKey:key];
+            else    // raw data
+            {
+                UIImage *image = [params objectForKey:key];
+                NSData *data = UIImageJPEGRepresentation(image, 1.0);
+                [request setData:data forKey:key];
+            }
         }
+        
     }
     
     [request setRequestMethod:httpMethod];

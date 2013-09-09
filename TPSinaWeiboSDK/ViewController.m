@@ -39,7 +39,7 @@
 
 -(void)ResourceButtonClicked:(id)sender
 {
-    [[TPSinaWeiboEngine sharedInstance] getUserInfo];
+    [[TPSinaWeiboEngine sharedInstance] postImageStatus];
 }
 - (void)didReceiveMemoryWarning
 {

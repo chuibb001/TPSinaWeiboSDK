@@ -20,8 +20,6 @@ typedef enum
 }
 TPSinaWeiboRequestErrorCode;
 
-typedef void (^TPSinaWeiboRequestHandler)(id responseData , TPSinaWeiboRequestErrorCode errorCode);
-
 @interface TPSinaWeiboRequest : NSObject
 
 // 以下三个是必填参数
@@ -29,7 +27,7 @@ typedef void (^TPSinaWeiboRequestHandler)(id responseData , TPSinaWeiboRequestEr
 @property (nonatomic,strong) NSString *urlPostfix;
 @property (nonatomic,strong) NSString *httpMethod;
 
--(void)requestWithCompletionHandler:(TPSinaWeiboRequestHandler)handler;
+-(void)request;
 
 @end
 

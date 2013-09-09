@@ -57,7 +57,7 @@ typedef enum
         常量 - Notification
  */
 #define kTPSinaWeiboEngineLoginDidSuccessNotification       @"kTPSinaWeiboEngineLoginDidSuccessNotification"
-#define kTPSinaWeiboEngineLoginDidSuccessNotification       @"kTPSinaWeiboEngineLoginDidSuccessNotification"
+#define kTPSinaWeiboEngineLoginDidFailNotification       @"kTPSinaWeiboEngineLoginDidFailNotification"
 #define kTPSinaWeiboEngineLoginDidSuccessNotification       @"kTPSinaWeiboEngineLoginDidSuccessNotification"
 #define kTPSinaWeiboEngineLoginDidSuccessNotification       @"kTPSinaWeiboEngineLoginDidSuccessNotification"
 #endif

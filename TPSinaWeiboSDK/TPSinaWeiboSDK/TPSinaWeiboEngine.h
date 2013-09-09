@@ -10,8 +10,7 @@
 
 #import <Foundation/Foundation.h>
 #import "TPSinaWeiboAccountService.h"
-#import "TPSinaWeiboRequest.h"
-#import "TPSinaWeiboUserInfoRequest.h"
+#import "TPSinaWeiboRequestFactory.h"
 
 @interface TPSinaWeiboEngine : NSObject
 
@@ -29,5 +28,15 @@
 - (void)Logout;
 
 - (void)getUserInfo;
+
+- (void)getUserTimeline;
+
+- (void)getFriends;
+
+- (void)getComments;
+
+- (void)postStatus;
+
+- (void)postImageStatus;
 
 @end

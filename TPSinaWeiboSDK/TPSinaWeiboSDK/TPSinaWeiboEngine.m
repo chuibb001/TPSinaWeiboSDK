@@ -34,29 +34,37 @@ static TPSinaWeiboEngine *instance = nil;
 }
 - (void)Login
 {
-    self.accountServeice.loginResultHandler = ^(TPSinaWeiboAccountStatus status)
-    {
-        switch (status) {
-            case TPSinaWeiboAccountLoginDidSuccess:
-                NSLog(@"success");
-                break;
-            case TPSinaWeiboAccountLoginDidFail:
-                NSLog(@"fail");
-                break;
-            default:
-                break;
-        }
-    };
-    
     [self.accountServeice Login];
 }
 
 - (void)getUserInfo
 {
-    TPSinaWeiboRequest * request = [[TPSinaWeiboUserInfoRequest alloc] init];
-    [request requestWithCompletionHandler:^(id responseData , TPSinaWeiboRequestErrorCode errorCode)
-    {
-        NSLog(@"Engine:%@",responseData);
-    }];
+    TPSinaWeiboRequest * request = [TPSinaWeiboRequestFactory requestWithType:TPSinaWeiboRequestTypeUserInfo];
+    [request request];
+}
+- (void)getUserTimeline
+{
+    TPSinaWeiboRequest * request = [TPSinaWeiboRequestFactory requestWithType:TPSinaWeiboRequestTypeUserTimeline];
+    [request request];
+}
+- (void)getFriends
+{
+    TPSinaWeiboRequest * request = [TPSinaWeiboRequestFactory requestWithType:TPSinaWeiboRequestTypeFriends];
+    [request request];
+}
+- (void)getComments
+{
+    TPSinaWeiboRequest * request = [TPSinaWeiboRequestFactory requestWithType:TPSinaWeiboRequestTypeComments];
+    [request request];
+}
+- (void)postStatus
+{
+    TPSinaWeiboRequest * request = [TPSinaWeiboRequestFactory requestWithType:TPSinaWeiboRequestTypeUpdateStatus];
+    [request request];
+}
+- (void)postImageStatus
+{
+    TPSinaWeiboRequest * request = [TPSinaWeiboRequestFactory requestWithType:TPSinaWeiboRequestTypeUploadStatus];
+    [request request];
 }
 @end

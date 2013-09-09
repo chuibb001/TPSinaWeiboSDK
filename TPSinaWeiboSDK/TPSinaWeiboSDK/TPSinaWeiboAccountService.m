@@ -90,7 +90,6 @@ static TPSinaWeiboAccountService * accountService = nil;
 {
     if ([self isAuthValid])
     {
-        self.loginResultHandler(TPSinaWeiboAccountLoginDidSuccess);  // 登录成功回调
         return ;
     }
     
@@ -179,7 +178,7 @@ static TPSinaWeiboAccountService * accountService = nil;
 
 - (void)authorizeView:(SinaWeiboAuthorizeView *)authView didFailWithErrorInfo:(NSDictionary *)errorInfo
 {
-    //[self logInDidFailWithErrorInfo:errorInfo];
+    [self logInDidFailWithErrorInfo:errorInfo];
 }
 
 - (void)authorizeViewDidCancel:(SinaWeiboAuthorizeView *)authView
@@ -199,12 +198,12 @@ static TPSinaWeiboAccountService * accountService = nil;
 
              [self handleResponseData:responseData];
              
-             self.loginResultHandler(TPSinaWeiboAccountLoginDidSuccess);  // 登录成功回调
+             [[NSNotificationCenter defaultCenter] postNotificationName:kTPSinaWeiboEngineLoginDidSuccessNotification object:nil];
              
          }
          else
          {
-             self.loginResultHandler(TPSinaWeiboAccountLoginDidFail);  // 登录失败回调
+             [[NSNotificationCenter defaultCenter] postNotificationName:kTPSinaWeiboEngineLoginDidSuccessNotification object:nil];
              NSLog(@"请求accessToken失败");
          }
          
@@ -261,7 +260,6 @@ static TPSinaWeiboAccountService * accountService = nil;
                                              code:[error_code intValue]
                                          userInfo:userInfo];
         
-        self.loginResultHandler(TPSinaWeiboAccountLoginDidFail);  // 登录失败回调
     }
 }
 - (void)removeAuthDataFromUserDefaults
