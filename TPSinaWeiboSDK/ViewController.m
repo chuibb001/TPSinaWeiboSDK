@@ -17,6 +17,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(UserInfoNotification:) name:kTPSinaWeiboEngineUserInfoNotification object:nil];
 	// 登录
     UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button setTitle:@"登录" forState:UIControlStateNormal];
@@ -39,7 +40,19 @@
 
 -(void)ResourceButtonClicked:(id)sender
 {
-    [[TPSinaWeiboEngine sharedInstance] postImageStatus];
+    [[TPSinaWeiboEngine sharedInstance] requestUserInfoWithUID:nil];
+}
+
+-(void)UserInfoNotification:(NSNotification *)note
+{
+    NSDictionary *dic = note.object;
+    NSError *error = dic[kTPSinaWeiboEngineErrorCodeKey];
+    NSLog(@"%@",error);
+    if(error.code == 200)
+    {
+        NSDictionary * responseDic = dic[kTPSinaWeiboEngineResponseDataKey];
+        NSLog(@"%@",responseDic);
+    }
 }
 - (void)didReceiveMemoryWarning
 {

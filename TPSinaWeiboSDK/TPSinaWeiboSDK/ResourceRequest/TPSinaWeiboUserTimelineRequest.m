@@ -20,33 +20,30 @@
         self.page = @"1"; // 默认第一页
         self.count = @"50"; // 默认每页50条
         self.trimUser = @"1";
+        [self setupDefaultParams];
     }
     return self;
 }
 
--(NSDictionary *)requestParamsDictionary
+-(void)setupDefaultParams
 {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
     if(self.accessToken)
-        [params setObject:self.accessToken forKey:@"access_token"];
+        [self.params setObject:self.accessToken forKey:@"access_token"];
     
     if(self.uid)
-        [params setObject:self.uid forKey:@"uid"];
+        [self.params setObject:self.uid forKey:@"uid"];
     
     if(self.count)
-        [params setObject:self.count forKey:@"count"];
+        [self.params setObject:self.count forKey:@"count"];
     
     if(self.page)
-        [params setObject:self.page forKey:@"page"];
+        [self.params setObject:self.page forKey:@"page"];
     
     if(self.sinceId)
-        [params setObject:self.sinceId forKey:@"since_id"];
+        [self.params setObject:self.sinceId forKey:@"since_id"];
     
     if(self.trimUser)
-        [params setObject:self.trimUser forKey:@"trim_user"];
-    
-    return params;
+        [self.params setObject:self.trimUser forKey:@"trim_user"];
 }
 
 -(id)decodeResponseJsonObject:(NSData *)jsonObject
@@ -58,4 +55,8 @@
     return responseDic;
 }
 
+-(void)postNotificationWithError:(NSError *)error ResponseData:(id)responseData
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTPSinaWeiboEngineUserTimelineNotification object:@{kTPSinaWeiboEngineErrorCodeKey:error,kTPSinaWeiboEngineResponseDataKey:responseData} userInfo:nil];
+}
 @end

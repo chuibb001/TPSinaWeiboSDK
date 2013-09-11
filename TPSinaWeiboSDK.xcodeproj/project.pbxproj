@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5635F99017DECDB500826143 /* TPSinaWeiboConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 5635F98F17DECDB400826143 /* TPSinaWeiboConst.m */; };
 		56F5DB9817DDDF0500B2B885 /* TPSinaWeiboRequestFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F5DB9717DDDF0500B2B885 /* TPSinaWeiboRequestFactory.m */; };
 		56F5DB9B17DDE10700B2B885 /* TPSinaWeiboUserTimelineRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F5DB9A17DDE10700B2B885 /* TPSinaWeiboUserTimelineRequest.m */; };
 		56F5DB9E17DDED5900B2B885 /* TPSinaWeiboFriendsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F5DB9D17DDED5800B2B885 /* TPSinaWeiboFriendsRequest.m */; };
@@ -70,6 +71,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5635F98E17DECDB400826143 /* TPSinaWeiboConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPSinaWeiboConst.h; path = ResourceRequest/TPSinaWeiboConst.h; sourceTree = "<group>"; };
+		5635F98F17DECDB400826143 /* TPSinaWeiboConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPSinaWeiboConst.m; path = ResourceRequest/TPSinaWeiboConst.m; sourceTree = "<group>"; };
 		56F5DB9617DDDF0500B2B885 /* TPSinaWeiboRequestFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboRequestFactory.h; sourceTree = "<group>"; };
 		56F5DB9717DDDF0500B2B885 /* TPSinaWeiboRequestFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSinaWeiboRequestFactory.m; sourceTree = "<group>"; };
 		56F5DB9917DDE10700B2B885 /* TPSinaWeiboUserTimelineRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboUserTimelineRequest.h; sourceTree = "<group>"; };
@@ -177,7 +180,6 @@
 		F49C30E617DB564D007836C4 /* TPSinaWeiboAccountService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSinaWeiboAccountService.m; sourceTree = "<group>"; };
 		F49C30E717DB564D007836C4 /* TPSinaWeiboCommonFuction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboCommonFuction.h; sourceTree = "<group>"; };
 		F49C30E817DB564D007836C4 /* TPSinaWeiboCommonFuction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSinaWeiboCommonFuction.m; sourceTree = "<group>"; };
-		F49C30E917DB564D007836C4 /* TPSinaWeiboConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboConst.h; sourceTree = "<group>"; };
 		F49C30EA17DB564D007836C4 /* TPSinaWeiboEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboEngine.h; sourceTree = "<group>"; };
 		F49C30EB17DB564D007836C4 /* TPSinaWeiboEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSinaWeiboEngine.m; sourceTree = "<group>"; };
 		F4FC736C17DC828D00ED7D5E /* TPSinaWeiboUserInfoRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboUserInfoRequest.h; sourceTree = "<group>"; };
@@ -314,7 +316,8 @@
 				F49C30E417DB564D007836C4 /* TPNetworkManager.m */,
 				F49C30E717DB564D007836C4 /* TPSinaWeiboCommonFuction.h */,
 				F49C30E817DB564D007836C4 /* TPSinaWeiboCommonFuction.m */,
-				F49C30E917DB564D007836C4 /* TPSinaWeiboConst.h */,
+				5635F98E17DECDB400826143 /* TPSinaWeiboConst.h */,
+				5635F98F17DECDB400826143 /* TPSinaWeiboConst.m */,
 			);
 			path = TPSinaWeiboSDK;
 			sourceTree = "<group>";
@@ -570,6 +573,7 @@
 				56F5DBA117DDED8100B2B885 /* TPSinaWeiboCommentsRequest.m in Sources */,
 				56F5DBA417DDED9C00B2B885 /* TPSinaWeiboUpdateStatusRequest.m in Sources */,
 				56F5DBA717DDEDB400B2B885 /* TPSinaWeiboUploadStatusRequest.m in Sources */,
+				5635F99017DECDB500826143 /* TPSinaWeiboConst.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

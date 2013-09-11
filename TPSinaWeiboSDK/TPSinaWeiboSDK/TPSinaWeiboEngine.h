@@ -18,25 +18,43 @@
 
 @property (nonatomic, strong) NSString *const TPSinaWeiboEngineLoginDidSuccessNotification;
 
-//    返回单例
+/**
+ *  @brief 单例
+ */
 + (id)sharedInstance;
 
-//    登录
+/**
+ *  @brief 登陆接口,会调用本地新浪微博客户端或网页进行授权
+ */
 - (void)Login;
 
-//    登出
+/**
+ *  @brief 登出接口,会清空本地存储的账户信息
+ */
 - (void)Logout;
 
-- (void)getUserInfo;
+/**
+ *  @brief 请求用户信息
+ *  @param uid:要请求的用户ID
+ */
+- (void)requestUserInfoWithUID:(NSString *)uid;
 
-- (void)getUserTimeline;
+/**
+ *  @brief 请求用户微博
+ *  @param uid:要请求的用户ID
+ *  @param count:每页返回的个数
+ *  @param page:第几页
+ *  @param sinceId:要请求的用户ID
+ *  @param trimUser:要请求的用户ID
+ */
+- (void)requestUserTimelineWithUID:(NSString *)uid Count:(NSString *)count Page:(NSString *)page SinceId:(NSString *)sinceId trimUSer:(NSString *)trimUser;
 
-- (void)getFriends;
+- (void)requestFriendsWithUID:(NSString *)uid Count:(NSString *)count Cursor:(NSString *)cursor trimStatus:(NSString *)trimStatus;
 
-- (void)getComments;
+- (void)getCommentsWithWeiboId:(NSString *)weiboId Count:(NSString *)count Page:(NSString *)page;
 
-- (void)postStatus;
+- (void)postStatusWithText:(NSString *)text Latitude:(NSString *)latitude Longitude:(NSString *)longitude;
 
-- (void)postImageStatus;
+- (void)postImageStatusWithText:(NSString *)text Latitude:(NSString *)latitude Longitude:(NSString *)longitude Image:(NSString *)image;
 
 @end

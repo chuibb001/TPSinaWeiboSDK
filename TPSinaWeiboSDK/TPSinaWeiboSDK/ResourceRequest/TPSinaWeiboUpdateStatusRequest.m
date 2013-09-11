@@ -19,27 +19,24 @@
         self.status = @"test";
         self.latitude = nil;
         self.longitude = nil;
+        [self setupDefaultParams];
     }
     return self;
 }
 
--(NSDictionary *)requestParamsDictionary
+-(void)setupDefaultParams
 {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
     if(self.accessToken)
-        [params setObject:self.accessToken forKey:@"access_token"];
+        [self.params setObject:self.accessToken forKey:@"access_token"];
     
     if(self.status)
-        [params setObject:self.status forKey:@"status"];
+        [self.params setObject:self.status forKey:@"status"];
     
     if(self.latitude)
-        [params setObject:self.latitude forKey:@"lat"];
+        [self.params setObject:self.latitude forKey:@"lat"];
     
     if(self.longitude)
-        [params setObject:self.longitude forKey:@"long"];
-      
-    return params;
+        [self.params setObject:self.longitude forKey:@"long"];
 }
 
 -(id)decodeResponseJsonObject:(NSData *)jsonObject
@@ -49,6 +46,11 @@
     NSMutableDictionary *responsedic = [NSJSONSerialization JSONObjectWithData:jsonObject options:NSJSONReadingMutableContainers error:&error];
     
     return responsedic;
+}
+
+-(void)postNotificationWithError:(NSError *)error ResponseData:(id)responseData
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTPSinaWeiboEngineUpdateStatusNotification object:@{kTPSinaWeiboEngineErrorCodeKey:error,kTPSinaWeiboEngineResponseDataKey:responseData} userInfo:nil];
 }
 
 @end

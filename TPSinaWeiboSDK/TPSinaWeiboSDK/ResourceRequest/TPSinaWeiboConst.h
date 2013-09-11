@@ -37,6 +37,7 @@
 
 #define kSinaWeiboAppAuthURL_iPhone        @"sinaweibosso://login"
 #define kSinaWeiboAppAuthURL_iPad          @"sinaweibohdsso://login"
+#endif
 
 typedef enum
 {
@@ -44,20 +45,23 @@ typedef enum
 	kSinaWeiboSDKErrorCodeSSOParamsError   = 202,
 } SinaWeiboSDKErrorCode;
 
-/*
-        常量 - Key
-*/
-#define kTPSinaWeiboEngineAuthDataKey          @"kTPSinaWeiboEngineAuthDataKey"
-#define kTPSinaWeiboEngineAccessTokenKey       @"kTPSinaWeiboEngineAccessTokenKey"
-#define kTPSinaWeiboEngineUserIDKey            @"kTPSinaWeiboEngineUserIDKey"
-#define kTPSinaWeiboEngineExpirationDateKey    @"kTPSinaWeiboEngineExpirationDateKey"
-#define kTPSinaWeiboEngineRefreshTokenKey      @"kTPSinaWeiboEngineRefreshTokenKey"
+extern NSString *const TPHttpErrorCodeDomain;
 
 /*
-        常量 - Notification
+ 常量 - Key
  */
-#define kTPSinaWeiboEngineLoginDidSuccessNotification       @"kTPSinaWeiboEngineLoginDidSuccessNotification"
-#define kTPSinaWeiboEngineLoginDidFailNotification       @"kTPSinaWeiboEngineLoginDidFailNotification"
-#define kTPSinaWeiboEngineLoginDidSuccessNotification       @"kTPSinaWeiboEngineLoginDidSuccessNotification"
-#define kTPSinaWeiboEngineLoginDidSuccessNotification       @"kTPSinaWeiboEngineLoginDidSuccessNotification"
-#endif
+
+
+/*
+ 常量 - Notification
+ */
+extern NSString *const kTPSinaWeiboEngineErrorCodeKey;
+extern NSString *const kTPSinaWeiboEngineResponseDataKey;
+extern NSString *const kTPSinaWeiboEngineLoginDidSuccessNotification;
+extern NSString *const kTPSinaWeiboEngineLoginDidFailNotification;
+extern NSString *const kTPSinaWeiboEngineUserInfoNotification;
+extern NSString *const kTPSinaWeiboEngineUserTimelineNotification;
+extern NSString *const kTPSinaWeiboEngineFriendsNotification;
+extern NSString *const kTPSinaWeiboEngineCommentsNotification;
+extern NSString *const kTPSinaWeiboEngineUpdateStatusNotification;
+extern NSString *const kTPSinaWeiboEngineUploadStatusNotification;

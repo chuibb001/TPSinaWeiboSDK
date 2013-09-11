@@ -17,21 +17,18 @@
         self.httpMethod = @"GET";
         self.urlPostfix = @"users/show.json";
         self.uid = ((TPSinaWeiboAccountService *)[TPSinaWeiboAccountService sharedInstance]).userID; //默认当前用户
+        [self setupDefaultParams];
     }
     return self;
 }
 
--(NSDictionary *)requestParamsDictionary
+-(void)setupDefaultParams
 {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
     if(self.accessToken)
-        [params setObject:self.accessToken forKey:@"access_token"];
+        [self.params setObject:self.accessToken forKey:@"access_token"];
     
     if(self.uid)
-       [params setObject:self.uid forKey:@"uid"];
-    
-    return params;
+        [self.params setObject:self.uid forKey:@"uid"];
 }
 
 -(id)decodeResponseJsonObject:(NSData *)jsonObject
@@ -41,6 +38,11 @@
     NSMutableDictionary *responseDic = [NSJSONSerialization JSONObjectWithData:jsonObject options:NSJSONReadingMutableContainers error:&error];
     
     return responseDic;
+}
+
+-(void)postNotificationWithError:(NSError *)error ResponseData:(id)responseData
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTPSinaWeiboEngineUserInfoNotification object:@{kTPSinaWeiboEngineErrorCodeKey:error,kTPSinaWeiboEngineResponseDataKey:responseData} userInfo:nil];
 }
 
 @end

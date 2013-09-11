@@ -26,8 +26,12 @@ TPSinaWeiboRequestErrorCode;
 @property (nonatomic,strong) NSString *accessToken;
 @property (nonatomic,strong) NSString *urlPostfix;
 @property (nonatomic,strong) NSString *httpMethod;
+@property (nonatomic,strong) NSMutableDictionary *params;
+
+@property (nonatomic,assign) BOOL isRequestCanceled;
 
 -(void)request;
+-(void)cancel;
 
 @end
 
@@ -37,5 +41,7 @@ TPSinaWeiboRequestErrorCode;
 -(NSDictionary *)requestParamsDictionary;
 
 -(id)decodeResponseJsonObject:(NSData *)jsonObject;
+
+-(void)postNotificationWithError:(NSError *)error ResponseData:(id)responseData;
 
 @end

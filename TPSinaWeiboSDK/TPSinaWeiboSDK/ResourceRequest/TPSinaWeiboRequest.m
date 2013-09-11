@@ -17,6 +17,8 @@
         self.accessToken = ((TPSinaWeiboAccountService *)[TPSinaWeiboAccountService sharedInstance]).accessToken;
         self.httpMethod = @"POST";
         self.urlPostfix = nil;
+        self.isRequestCanceled = NO;
+        self.params = [[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -37,24 +39,38 @@
     
     if([self.httpMethod isEqualToString:@"GET"]) // GET的参数跟在URL后面
         fullURL = [TPSinaWeiboCommonFuction serializeURL:fullURL
-                                                           params:[self requestParamsDictionary] httpMethod:self.httpMethod];
+                                                           params:[self params] httpMethod:self.httpMethod];
     
     // 请求数据
-    [[TPNetworkManager sharedInstance] requestWithURL:fullURL httpMethod:self.httpMethod params:[self requestParamsDictionary] completionHandler:^(NSData *responseData,int httpStatusCode)
+    [[TPNetworkManager sharedInstance] requestWithURL:fullURL httpMethod:self.httpMethod params:[self params] completionHandler:^(NSData *responseData,int httpStatusCode)
      {
-         if(httpStatusCode == 200)
+         if(!self.isRequestCanceled)  // 如果取消了就不发通知了
          {
+             NSError *error = [NSError errorWithDomain:TPHttpErrorCodeDomain code:httpStatusCode userInfo:nil];
+             id decodedResponseData = nil;
              
-             id decodedResponseData = [self decodeResponseJsonObject:responseData]; // 解析JSON
+             if(httpStatusCode == 200)
+             {
+                 
+                 decodedResponseData = [self decodeResponseJsonObject:responseData]; // 解析JSON
+ 
+                 //NSLog(@"解析JSON后:%@",decodedResponseData);
+             }
+             else
+             {
+                 decodedResponseData = [[NSDictionary alloc] init]; // 先搞个空的吧，避免insert nil
+                 //NSLog(@"请求资源失败 %d",httpStatusCode);
+             }
              
-             NSLog(@"解析JSON后:%@",decodedResponseData);
-         }
-         else
-         {
-             NSLog(@"请求资源失败 %d",httpStatusCode);
+             [self postNotificationWithError:error ResponseData:decodedResponseData];
          }
          
      }];
+}
+
+-(void)cancel  // 目前采取不接数据的方式
+{
+    self.isRequestCanceled = YES;
 }
 
 #pragma mark subClassHooks
@@ -67,4 +83,10 @@
 {
     return nil;
 }
+
+-(void)postNotificationWithError:(NSError *)error ResponseData:(id)responseData
+{
+    
+}
+
 @end

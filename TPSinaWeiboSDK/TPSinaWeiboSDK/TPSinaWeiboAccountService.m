@@ -8,6 +8,12 @@
 
 #import "TPSinaWeiboAccountService.h"
 
+#define kTPSinaWeiboEngineAuthDataKey          @"kTPSinaWeiboEngineAuthDataKey"
+#define kTPSinaWeiboEngineAccessTokenKey       @"kTPSinaWeiboEngineAccessTokenKey"
+#define kTPSinaWeiboEngineUserIDKey            @"kTPSinaWeiboEngineUserIDKey"
+#define kTPSinaWeiboEngineExpirationDateKey    @"kTPSinaWeiboEngineExpirationDateKey"
+#define kTPSinaWeiboEngineRefreshTokenKey      @"kTPSinaWeiboEngineRefreshTokenKey"
+
 @implementation TPSinaWeiboAccountService
 
 static TPSinaWeiboAccountService * accountService = nil;
@@ -203,7 +209,7 @@ static TPSinaWeiboAccountService * accountService = nil;
          }
          else
          {
-             [[NSNotificationCenter defaultCenter] postNotificationName:kTPSinaWeiboEngineLoginDidSuccessNotification object:nil];
+             [[NSNotificationCenter defaultCenter] postNotificationName:kTPSinaWeiboEngineLoginDidFailNotification object:nil];
              NSLog(@"请求accessToken失败");
          }
          

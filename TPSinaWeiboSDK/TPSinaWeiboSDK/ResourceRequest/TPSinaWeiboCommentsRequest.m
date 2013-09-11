@@ -19,27 +19,24 @@
         self.weiboId = @"3620577140624625"; // for test
         self.count = @"50"; // 默认50条
         self.page = @"1"; // 默认第1页
+        [self setupDefaultParams];
     }
     return self;
 }
 
--(NSDictionary *)requestParamsDictionary
+-(void)setupDefaultParams
 {
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-    
     if(self.accessToken)
-        [params setObject:self.accessToken forKey:@"access_token"];
+        [self.params setObject:self.accessToken forKey:@"access_token"];
     
     if(self.weiboId)
-        [params setObject:self.weiboId forKey:@"id"];
+        [self.params setObject:self.weiboId forKey:@"id"];
     
     if(self.count)
-        [params setObject:self.count forKey:@"count"];
+        [self.params setObject:self.count forKey:@"count"];
     
     if(self.page)
-        [params setObject:self.page forKey:@"page"];
-    
-    return params;
+        [self.params setObject:self.page forKey:@"page"];
 }
 
 -(id)decodeResponseJsonObject:(NSData *)jsonObject
@@ -51,5 +48,8 @@
     return responsedic;
 }
 
-
+-(void)postNotificationWithError:(NSError *)error ResponseData:(id)responseData
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:kTPSinaWeiboEngineCommentsNotification object:@{kTPSinaWeiboEngineErrorCodeKey:error,kTPSinaWeiboEngineResponseDataKey:responseData} userInfo:nil];
+}
 @end
