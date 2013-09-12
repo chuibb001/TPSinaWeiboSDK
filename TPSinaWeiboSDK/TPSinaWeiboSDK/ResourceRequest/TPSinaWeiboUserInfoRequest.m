@@ -16,7 +16,7 @@
     if (self) {
         self.httpMethod = @"GET";
         self.urlPostfix = @"users/show.json";
-        self.uid = ((TPSinaWeiboAccountService *)[TPSinaWeiboAccountService sharedInstance]).userID; //默认当前用户
+        self.uid = ((TPSinaWeiboAccount *)[TPSinaWeiboAccount sharedInstance]).userID; //默认当前用户
         [self setupDefaultParams];
     }
     return self;

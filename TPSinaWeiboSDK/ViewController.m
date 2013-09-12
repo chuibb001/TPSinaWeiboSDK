@@ -25,12 +25,25 @@
     [button addTarget:self action:@selector(LoginButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button];
     
+    // 登出
+    UIButton *button2 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [button2 setTitle:@"登出" forState:UIControlStateNormal];
+    button2.frame = CGRectMake(10, 70, 300, 44);
+    [button2 addTarget:self action:@selector(LogoutButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:button2];
+    
     // 请求
     UIButton *button1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button1 setTitle:@"资源" forState:UIControlStateNormal];
-    button1.frame = CGRectMake(10, 70, 300, 44);
+    button1.frame = CGRectMake(10, 130, 300, 44);
     [button1 addTarget:self action:@selector(ResourceButtonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:button1];
+}
+
+
+-(void)LogoutButtonClicked:(id)sender
+{
+    [[TPSinaWeiboEngine sharedInstance] Logout];
 }
 
 -(void)LoginButtonClicked:(id)sender

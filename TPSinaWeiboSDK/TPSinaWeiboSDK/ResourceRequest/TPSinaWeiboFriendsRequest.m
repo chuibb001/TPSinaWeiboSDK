@@ -16,7 +16,7 @@
     if (self) {
         self.httpMethod = @"GET";
         self.urlPostfix = @"friendships/friends.json";
-        self.uid = ((TPSinaWeiboAccountService *)[TPSinaWeiboAccountService sharedInstance]).userID; // 默认当前用户
+        self.uid = ((TPSinaWeiboAccount *)[TPSinaWeiboAccount sharedInstance]).userID; // 默认当前用户
         self.count = @"50"; // 默认50条
         self.cursor = @"0"; // 默认第1页
         self.trimStatus = @"1";

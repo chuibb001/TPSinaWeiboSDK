@@ -2,7 +2,7 @@
 //  TPSinaWeiboEngine.h
 //  TPSinaWeiboSDK
 
-//  接口层
+//  对外接口
 
 //  Created by simon on 13-9-7.
 //  Copyright (c) 2013年 simon. All rights reserved.
@@ -41,20 +41,47 @@
 
 /**
  *  @brief 请求用户微博
- *  @param uid:要请求的用户ID
- *  @param count:每页返回的个数
- *  @param page:第几页
- *  @param sinceId:要请求的用户ID
- *  @param trimUser:要请求的用户ID
+ *  @param uid:需要查询的用户ID
+ *  @param count:单页返回的记录条数
+ *  @param page:返回结果的页码
+ *  @param sinceId:返回ID比since_id大的微博
+ *  @param trimUser:返回值中user字段开关,0:返回完整user字段 1:user字段仅返回user_id
  */
 - (void)requestUserTimelineWithUID:(NSString *)uid Count:(NSString *)count Page:(NSString *)page SinceId:(NSString *)sinceId trimUSer:(NSString *)trimUser;
 
+/**
+ *  @brief 请求用户微博
+ *  @param uid:需要查询的用户ID
+ *  @param count:单页返回的记录条数
+ *  @param cursor:返回结果的游标
+ *  @param trimStatus:返回值中user字段中的status字段开关,0:返回完整status字段 1：status字段仅返回status_id,默认为1。
+ */
 - (void)requestFriendsWithUID:(NSString *)uid Count:(NSString *)count Cursor:(NSString *)cursor trimStatus:(NSString *)trimStatus;
 
+/**
+ *  @brief 请求用户微博
+ *  @param weiboId:需要查询的微博ID
+ *  @param count:单页返回的记录条数
+ *  @param page:返回结果的页码
+ */
 - (void)getCommentsWithWeiboId:(NSString *)weiboId Count:(NSString *)count Page:(NSString *)page;
 
+/**
+ *  @brief 请求用户微博
+ *  @param text:要发布的微博文本内容
+ *  @param latitude:经度
+ *  @param longitude:纬度
+ */
 - (void)postStatusWithText:(NSString *)text Latitude:(NSString *)latitude Longitude:(NSString *)longitude;
 
+/**
+ *  @brief 请求用户微博
+ *  @param text:要发布的微博文本内容
+ *  @param latitude:经度
+ *  @param longitude:纬度
+ *  @param image:要发布的照片
+ */
 - (void)postImageStatusWithText:(NSString *)text Latitude:(NSString *)latitude Longitude:(NSString *)longitude Image:(NSString *)image;
+
 
 @end

@@ -6,6 +6,7 @@
 //  Copyright (c) 2013年 simon. All rights reserved.
 //
 NSString *const TPHttpErrorCodeDomain = @"TPHttpErrorCodeDomain";
+
 NSString *const kTPSinaWeiboEngineErrorCodeKey = @"kTPSinaWeiboEngineErrorCodeKey";
 NSString *const kTPSinaWeiboEngineResponseDataKey = @"kTPSinaWeiboEngineResponseDataKey";
 NSString *const kTPSinaWeiboEngineLoginDidSuccessNotification = @"kTPSinaWeiboEngineLoginDidSuccessNotification";

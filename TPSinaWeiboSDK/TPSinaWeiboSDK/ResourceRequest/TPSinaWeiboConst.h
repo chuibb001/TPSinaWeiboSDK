@@ -47,13 +47,9 @@ typedef enum
 
 extern NSString *const TPHttpErrorCodeDomain;
 
-/*
- 常量 - Key
- */
-
 
 /*
- 常量 - Notification
+ *   @brief 客户端接收相应通知获取数据
  */
 extern NSString *const kTPSinaWeiboEngineErrorCodeKey;
 extern NSString *const kTPSinaWeiboEngineResponseDataKey;
@@ -65,3 +61,5 @@ extern NSString *const kTPSinaWeiboEngineFriendsNotification;
 extern NSString *const kTPSinaWeiboEngineCommentsNotification;
 extern NSString *const kTPSinaWeiboEngineUpdateStatusNotification;
 extern NSString *const kTPSinaWeiboEngineUploadStatusNotification;
+
+

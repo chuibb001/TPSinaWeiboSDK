@@ -36,7 +36,10 @@ static TPSinaWeiboEngine *instance = nil;
 {
     [self.accountServeice Login];
 }
-
+- (void)Logout
+{
+    [self.accountServeice Logout];
+}
 - (void)requestUserInfoWithUID:(NSString *)uid
 {
     TPSinaWeiboRequest * request = [TPSinaWeiboRequestFactory requestWithType:TPSinaWeiboRequestTypeUserInfo];

@@ -11,15 +11,6 @@
 #import <Foundation/Foundation.h>
 #import "TPSinaWeiboAccountService.h"
 
-typedef enum
-{
-    TPSinaWeiboRequestErrorCodeNone = 0,            // 成功
-    TPSinaWeiboRequestErrorCodeAccessTokenNeeded,   // 需要AccessToken授权
-    TPSinaWeiboRequestErrorCodeURLIncompleted,      // URL地址不完整
-    TPSinaWeiboRequestErrorCodeFailToFetch          // 数据访问失败
-}
-TPSinaWeiboRequestErrorCode;
-
 @interface TPSinaWeiboRequest : NSObject
 
 // 以下三个是必填参数
@@ -37,8 +28,6 @@ TPSinaWeiboRequestErrorCode;
 
 // 子类实现
 @interface TPSinaWeiboRequest(SubclassingHooks)
-
--(NSDictionary *)requestParamsDictionary;
 
 -(id)decodeResponseJsonObject:(NSData *)jsonObject;
 

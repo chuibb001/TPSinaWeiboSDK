@@ -14,7 +14,7 @@
 {
     self = [super init];
     if (self) {
-        self.accessToken = ((TPSinaWeiboAccountService *)[TPSinaWeiboAccountService sharedInstance]).accessToken;
+        self.accessToken = ((TPSinaWeiboAccount *)[TPSinaWeiboAccount sharedInstance]).accessToken;
         self.httpMethod = @"POST";
         self.urlPostfix = nil;
         self.isRequestCanceled = NO;
@@ -24,12 +24,7 @@
 }
 
 -(void)request
-{
-    if(!self.accessToken)
-    {
-        return ;
-    }
-    
+{    
     if(!self.urlPostfix)
     {
         return ;
