@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "ViewController.h"
+#import "TPSinaWeiboAccountService.h"
 
 @implementation AppDelegate
 
@@ -51,6 +52,18 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+/*调用本地微博客户端来授权的时候必须加上下面的代码*/
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return [[TPSinaWeiboAccountService sharedInstance] handleOpenURL:url];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return [[TPSinaWeiboAccountService sharedInstance] handleOpenURL:url];
+
 }
 
 @end

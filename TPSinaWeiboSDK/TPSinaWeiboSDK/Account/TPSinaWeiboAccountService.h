@@ -34,5 +34,6 @@ TPSinaWeiboAccountStatus;
 +(id)sharedInstance;
 -(void)Login;
 -(void)Logout;
+- (BOOL)handleOpenURL:(NSURL *)url;
 
 @end

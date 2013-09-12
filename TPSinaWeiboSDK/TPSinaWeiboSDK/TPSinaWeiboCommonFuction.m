@@ -42,4 +42,34 @@
     return [NSString stringWithFormat:@"%@%@%@", baseURL, queryPrefix, query];
 }
 
++ (NSString *)getParamValueFromUrl:(NSString*)url paramName:(NSString *)paramName
+{
+    if (![paramName hasSuffix:@"="])
+    {
+        paramName = [NSString stringWithFormat:@"%@=", paramName];
+    }
+    
+    NSString * str = nil;
+    NSRange start = [url rangeOfString:paramName];
+    if (start.location != NSNotFound)
+    {
+        // confirm that the parameter is not a partial name match
+        unichar c = '?';
+        if (start.location != 0)
+        {
+            c = [url characterAtIndex:start.location - 1];
+        }
+        if (c == '?' || c == '&' || c == '#')
+        {
+            NSRange end = [[url substringFromIndex:start.location+start.length] rangeOfString:@"&"];
+            NSUInteger offset = start.location+start.length;
+            str = end.location == NSNotFound ?
+            [url substringFromIndex:offset] :
+            [url substringWithRange:NSMakeRange(offset, end.location)];
+            str = [str stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        }
+    }
+    return str;
+}
+
 @end
