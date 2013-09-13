@@ -169,7 +169,7 @@
     self.repostTextView.frame = repostTextViewFrame;
     self.repostBackgroundImageView.frame = repostBackfroundImageViewFrame;
     self.picImageView.frame = imageViewFrame;
-    // 加载图片:从缓存取或者异步加载
+    // 加载图片:从缓存取或者异步加载 
     if(dataModel.imageData.thumbnailPic)
         self.picImageView.image = dataModel.imageData.thumbnailPic;
     else
