@@ -7,9 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5605700C17E305FF005D39BF /* TPImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5605700B17E305FF005D39BF /* TPImageDownloader.m */; };
+		5605700F17E30F73005D39BF /* TPImageDownloadCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5605700E17E30F72005D39BF /* TPImageDownloadCenter.m */; };
 		5635F99017DECDB500826143 /* TPSinaWeiboConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 5635F98F17DECDB400826143 /* TPSinaWeiboConst.m */; };
 		56A3B0DF17E16D93005ADC1C /* TPSinaWeiboAccount.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A3B0DC17E16D93005ADC1C /* TPSinaWeiboAccount.m */; };
 		56A3B0E017E16D93005ADC1C /* TPSinaWeiboAccountService.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A3B0DE17E16D93005ADC1C /* TPSinaWeiboAccountService.m */; };
+		56A3B0E317E1AAE9005ADC1C /* TPImageTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A3B0E217E1AAE8005ADC1C /* TPImageTextView.m */; };
+		56A3B0E617E1AE1F005ADC1C /* TPWeiboListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A3B0E517E1AE1F005ADC1C /* TPWeiboListViewController.m */; };
+		56A3B0E917E1B088005ADC1C /* TPWeiboDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A3B0E817E1B087005ADC1C /* TPWeiboDataModel.m */; };
+		56A3B0EC17E1BF6A005ADC1C /* TPWeiboTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A3B0EB17E1BF69005ADC1C /* TPWeiboTableViewCell.m */; };
+		56A3B0F117E1F489005ADC1C /* TPWeiboTextParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A3B0F017E1F489005ADC1C /* TPWeiboTextParser.m */; };
 		56F5DB9817DDDF0500B2B885 /* TPSinaWeiboRequestFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F5DB9717DDDF0500B2B885 /* TPSinaWeiboRequestFactory.m */; };
 		56F5DB9B17DDE10700B2B885 /* TPSinaWeiboUserTimelineRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F5DB9A17DDE10700B2B885 /* TPSinaWeiboUserTimelineRequest.m */; };
 		56F5DB9E17DDED5900B2B885 /* TPSinaWeiboFriendsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F5DB9D17DDED5800B2B885 /* TPSinaWeiboFriendsRequest.m */; };
@@ -72,12 +79,26 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5605700A17E305FF005D39BF /* TPImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPImageDownloader.h; sourceTree = "<group>"; };
+		5605700B17E305FF005D39BF /* TPImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPImageDownloader.m; sourceTree = "<group>"; };
+		5605700D17E30F72005D39BF /* TPImageDownloadCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPImageDownloadCenter.h; sourceTree = "<group>"; };
+		5605700E17E30F72005D39BF /* TPImageDownloadCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPImageDownloadCenter.m; sourceTree = "<group>"; };
 		5635F98E17DECDB400826143 /* TPSinaWeiboConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPSinaWeiboConst.h; path = ResourceRequest/TPSinaWeiboConst.h; sourceTree = "<group>"; };
 		5635F98F17DECDB400826143 /* TPSinaWeiboConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPSinaWeiboConst.m; path = ResourceRequest/TPSinaWeiboConst.m; sourceTree = "<group>"; };
 		56A3B0DB17E16D93005ADC1C /* TPSinaWeiboAccount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboAccount.h; sourceTree = "<group>"; };
 		56A3B0DC17E16D93005ADC1C /* TPSinaWeiboAccount.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSinaWeiboAccount.m; sourceTree = "<group>"; };
 		56A3B0DD17E16D93005ADC1C /* TPSinaWeiboAccountService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboAccountService.h; sourceTree = "<group>"; };
 		56A3B0DE17E16D93005ADC1C /* TPSinaWeiboAccountService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSinaWeiboAccountService.m; sourceTree = "<group>"; };
+		56A3B0E117E1AAE7005ADC1C /* TPImageTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPImageTextView.h; sourceTree = "<group>"; };
+		56A3B0E217E1AAE8005ADC1C /* TPImageTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPImageTextView.m; sourceTree = "<group>"; };
+		56A3B0E417E1AE1F005ADC1C /* TPWeiboListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPWeiboListViewController.h; sourceTree = "<group>"; };
+		56A3B0E517E1AE1F005ADC1C /* TPWeiboListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPWeiboListViewController.m; sourceTree = "<group>"; };
+		56A3B0E717E1B087005ADC1C /* TPWeiboDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPWeiboDataModel.h; sourceTree = "<group>"; };
+		56A3B0E817E1B087005ADC1C /* TPWeiboDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPWeiboDataModel.m; sourceTree = "<group>"; };
+		56A3B0EA17E1BF69005ADC1C /* TPWeiboTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPWeiboTableViewCell.h; sourceTree = "<group>"; };
+		56A3B0EB17E1BF69005ADC1C /* TPWeiboTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPWeiboTableViewCell.m; sourceTree = "<group>"; };
+		56A3B0EF17E1F488005ADC1C /* TPWeiboTextParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPWeiboTextParser.h; sourceTree = "<group>"; };
+		56A3B0F017E1F489005ADC1C /* TPWeiboTextParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPWeiboTextParser.m; sourceTree = "<group>"; };
 		56F5DB9617DDDF0500B2B885 /* TPSinaWeiboRequestFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboRequestFactory.h; sourceTree = "<group>"; };
 		56F5DB9717DDDF0500B2B885 /* TPSinaWeiboRequestFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPSinaWeiboRequestFactory.m; sourceTree = "<group>"; };
 		56F5DB9917DDE10700B2B885 /* TPSinaWeiboUserTimelineRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPSinaWeiboUserTimelineRequest.h; sourceTree = "<group>"; };
@@ -222,6 +243,20 @@
 		F49C2E3717DB0AE3007836C4 = {
 			isa = PBXGroup;
 			children = (
+				5605700D17E30F72005D39BF /* TPImageDownloadCenter.h */,
+				5605700E17E30F72005D39BF /* TPImageDownloadCenter.m */,
+				5605700A17E305FF005D39BF /* TPImageDownloader.h */,
+				5605700B17E305FF005D39BF /* TPImageDownloader.m */,
+				56A3B0EF17E1F488005ADC1C /* TPWeiboTextParser.h */,
+				56A3B0F017E1F489005ADC1C /* TPWeiboTextParser.m */,
+				56A3B0EA17E1BF69005ADC1C /* TPWeiboTableViewCell.h */,
+				56A3B0EB17E1BF69005ADC1C /* TPWeiboTableViewCell.m */,
+				56A3B0E717E1B087005ADC1C /* TPWeiboDataModel.h */,
+				56A3B0E817E1B087005ADC1C /* TPWeiboDataModel.m */,
+				56A3B0E417E1AE1F005ADC1C /* TPWeiboListViewController.h */,
+				56A3B0E517E1AE1F005ADC1C /* TPWeiboListViewController.m */,
+				56A3B0E117E1AAE7005ADC1C /* TPImageTextView.h */,
+				56A3B0E217E1AAE8005ADC1C /* TPImageTextView.m */,
 				F49C2E6917DB0AFA007836C4 /* weibo */,
 				F49C2E4917DB0AE3007836C4 /* TPSinaWeiboSDK */,
 				F49C2E4217DB0AE3007836C4 /* Frameworks */,
@@ -588,6 +623,13 @@
 				5635F99017DECDB500826143 /* TPSinaWeiboConst.m in Sources */,
 				56A3B0DF17E16D93005ADC1C /* TPSinaWeiboAccount.m in Sources */,
 				56A3B0E017E16D93005ADC1C /* TPSinaWeiboAccountService.m in Sources */,
+				56A3B0E317E1AAE9005ADC1C /* TPImageTextView.m in Sources */,
+				56A3B0E617E1AE1F005ADC1C /* TPWeiboListViewController.m in Sources */,
+				56A3B0E917E1B088005ADC1C /* TPWeiboDataModel.m in Sources */,
+				56A3B0EC17E1BF6A005ADC1C /* TPWeiboTableViewCell.m in Sources */,
+				56A3B0F117E1F489005ADC1C /* TPWeiboTextParser.m in Sources */,
+				5605700C17E305FF005D39BF /* TPImageDownloader.m in Sources */,
+				5605700F17E30F73005D39BF /* TPImageDownloadCenter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,7 +730,7 @@
 				GCC_PREFIX_HEADER = "TPSinaWeiboSDK/TPSinaWeiboSDK-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "TPSinaWeiboSDK/TPSinaWeiboSDK-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -702,7 +744,7 @@
 				GCC_PREFIX_HEADER = "TPSinaWeiboSDK/TPSinaWeiboSDK-Prefix.pch";
 				HEADER_SEARCH_PATHS = "${SDK_DIR}/usr/include/libxml2";
 				INFOPLIST_FILE = "TPSinaWeiboSDK/TPSinaWeiboSDK-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

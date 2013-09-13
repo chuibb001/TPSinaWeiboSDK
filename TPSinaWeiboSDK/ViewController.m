@@ -53,7 +53,9 @@
 
 -(void)ResourceButtonClicked:(id)sender
 {
-    [[TPSinaWeiboEngine sharedInstance] requestUserInfoWithUID:nil];
+    //[[TPSinaWeiboEngine sharedInstance] requestUserInfoWithUID:nil];
+    TPWeiboListViewController *c = [[TPWeiboListViewController alloc] init];
+    [self presentViewController:c animated:YES completion:nil];
 }
 
 -(void)UserInfoNotification:(NSNotification *)note

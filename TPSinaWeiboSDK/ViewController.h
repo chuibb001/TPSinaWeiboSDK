@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "TPSinaWeiboEngine.h"
+#import "TPWeiboListViewController.h"
+#import "TPImageDownloader.h"
 
 @interface ViewController : UIViewController
 

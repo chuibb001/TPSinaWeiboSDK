@@ -19,7 +19,7 @@
         self.uid = ((TPSinaWeiboAccount *)[TPSinaWeiboAccount sharedInstance]).userID; // 默认当前用户
         self.page = @"1"; // 默认第一页
         self.count = @"50"; // 默认每页50条
-        self.trimUser = @"1";
+        self.trimUser = @"0";
         [self setupDefaultParams];
     }
     return self;
