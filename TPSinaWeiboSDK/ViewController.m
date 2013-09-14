@@ -55,7 +55,8 @@
 {
     //[[TPSinaWeiboEngine sharedInstance] requestUserInfoWithUID:nil];
     TPWeiboListViewController *c = [[TPWeiboListViewController alloc] init];
-    [self presentViewController:c animated:YES completion:nil];
+    TPCreateDiaryViewController *b = [[TPCreateDiaryViewController alloc] init];
+    [self presentViewController:b animated:YES completion:nil];
 }
 
 -(void)UserInfoNotification:(NSNotification *)note

@@ -10,6 +10,7 @@
 #import "TPSinaWeiboEngine.h"
 #import "TPWeiboListViewController.h"
 #import "TPImageDownloader.h"
+#import "TPCreateDiaryViewController.h"
 
 @interface ViewController : UIViewController
 
