@@ -36,12 +36,12 @@
 
 - (void)setDisplayData:(TPWeiboDataModel *)dataModel
 {
-    const CGRect textViewFrame = CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y, dataModel.textData.textSize.width, dataModel.textData.textSize.height);
+    const CGRect textViewFrame = CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y, dataModel.weiboUIData.textSize.width, dataModel.weiboUIData.textSize.height);
     const CGRect timeLabelFrame = CGRectMake(40, 5 + textViewFrame.size.height + textViewFrame.origin.y, 270, 20);
     
-    [self.textView setTextArray:dataModel.textData.parsedTextArray];
+    [self.textView setTextArray:dataModel.weiboData.textData.parsedTextArray];
     self.textView.frame = textViewFrame;
-    self.timeLabel.text = dataModel.time;
+    self.timeLabel.text = [[dataModel.weiboData.time description] substringToIndex:16];
     self.timeLabel.frame = timeLabelFrame;
 }
 
@@ -63,20 +63,20 @@
 
 - (void)setDisplayData:(TPWeiboDataModel *)dataModel
 {
-    const CGRect textViewFrame = CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y, dataModel.textData.textSize.width, dataModel.textData.textSize.height);
+    const CGRect textViewFrame = CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y, dataModel.weiboUIData.textSize.width, dataModel.weiboUIData.textSize.height);
     const CGRect imageViewFrame = CGRectMake(textViewFrame.origin.x, 5 + textViewFrame.size.height + textViewFrame.origin.y, 100.0, 100.0);
     const CGRect timeLabelFrame = CGRectMake(40, 5 + imageViewFrame.size.height + imageViewFrame.origin.y, 270, 20);
     
-    [self.textView setTextArray:dataModel.textData.parsedTextArray];
+    [self.textView setTextArray:dataModel.weiboData.textData.parsedTextArray];
     self.textView.frame = textViewFrame;
     // 加载图片:从缓存取或者异步加载
-    if(dataModel.imageData.thumbnailPic)
-        self.picImageView.image = dataModel.imageData.thumbnailPic;
+    if(dataModel.weiboData.thumbnailImageData.image)
+        self.picImageView.image = dataModel.weiboData.thumbnailImageData.image;
     else
-        [[TPImageDownloadCenter sharedInstance] loadImageWithURL:dataModel.imageData.thumbnailPicURL Type:TPWeiboImageTypeThumbnail ViewDelegate:self ModelDelegate:dataModel ProgressDelegate:nil];
+        [[TPImageDownloadCenter sharedInstance] loadImageWithURL:dataModel.weiboData.thumbnailImageData.imageURL Type:TPWeiboImageTypeThumbnail ViewDelegate:self ModelDelegate:dataModel ProgressDelegate:nil];
     
     self.picImageView.frame = imageViewFrame;
-    self.timeLabel.text = dataModel.time;
+    self.timeLabel.text = [[dataModel.weiboData.time description] substringToIndex:16];
     self.timeLabel.frame = timeLabelFrame;
 }
 
@@ -114,20 +114,20 @@
 
 - (void)setDisplayData:(TPWeiboDataModel *)dataModel
 {
-    const CGRect textViewFrame = CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y, dataModel.textData.textSize.width, dataModel.textData.textSize.height);
+    const CGRect textViewFrame = CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y, dataModel.weiboUIData.textSize.width, dataModel.weiboUIData.textSize.height);
     const CGRect nameLabelFrame = CGRectMake(10, 10, 250, 20);
-    const CGRect repostTextViewFrame = CGRectMake(nameLabelFrame.origin.x, nameLabelFrame.origin.y + nameLabelFrame.size.height + 5 , dataModel.repostTextData.textSize.width, dataModel.repostTextData.textSize.height);
+    const CGRect repostTextViewFrame = CGRectMake(nameLabelFrame.origin.x, nameLabelFrame.origin.y + nameLabelFrame.size.height + 5 , dataModel.weiboUIData.repostWeiboUIdata.textSize.width, dataModel.weiboUIData.repostWeiboUIdata.textSize.height);
     const CGRect repostBackfroundImageViewFrame = CGRectMake(textViewFrame.origin.x, 5 + textViewFrame.size.height + textViewFrame.origin.y, textViewFrame.size.width, repostTextViewFrame.size.height + nameLabelFrame.size.height + 20);
     const CGRect timeLabelFrame = CGRectMake(40, 5 + repostBackfroundImageViewFrame.size.height + repostBackfroundImageViewFrame.origin.y, 270, 20);
     
-    [self.textView setTextArray:dataModel.textData.parsedTextArray];
+    [self.textView setTextArray:dataModel.weiboData.textData.parsedTextArray];
     self.textView.frame = textViewFrame;
-    self.nameLabel.text = dataModel.repostUserName;
+    self.nameLabel.text = dataModel.weiboData.repostWeiboData.userName;
     self.nameLabel.frame = nameLabelFrame;
-    [self.repostTextView setTextArray:dataModel.repostTextData.parsedTextArray];
+    [self.repostTextView setTextArray:dataModel.weiboData.repostWeiboData.textData.parsedTextArray];
     self.repostTextView.frame = repostTextViewFrame;
     self.repostBackgroundImageView.frame = repostBackfroundImageViewFrame;
-    self.timeLabel.text = dataModel.time;
+    self.timeLabel.text = [[dataModel.weiboData.time description] substringToIndex:16];
     self.timeLabel.frame = timeLabelFrame;
 }
 
@@ -154,27 +154,27 @@
 
 - (void)setDisplayData:(TPWeiboDataModel *)dataModel
 {
-    const CGRect textViewFrame = CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y, dataModel.textData.textSize.width, dataModel.textData.textSize.height);
+    const CGRect textViewFrame = CGRectMake(self.textView.frame.origin.x, self.textView.frame.origin.y, dataModel.weiboUIData.textSize.width, dataModel.weiboUIData.textSize.height);
     const CGRect nameLabelFrame = CGRectMake(10, 10, 250, 20);
-    const CGRect repostTextViewFrame = CGRectMake(nameLabelFrame.origin.x, nameLabelFrame.origin.y + nameLabelFrame.size.height + 5 , dataModel.repostTextData.textSize.width, dataModel.repostTextData.textSize.height);
+    const CGRect repostTextViewFrame = CGRectMake(nameLabelFrame.origin.x, nameLabelFrame.origin.y + nameLabelFrame.size.height + 5 , dataModel.weiboUIData.repostWeiboUIdata.textSize.width, dataModel.weiboUIData.repostWeiboUIdata.textSize.height);
     const CGRect imageViewFrame = CGRectMake(repostTextViewFrame.origin.x, 5 + repostTextViewFrame.size.height + repostTextViewFrame.origin.y, 100.0, 100.0);
     const CGRect repostBackfroundImageViewFrame = CGRectMake(textViewFrame.origin.x, 5 + textViewFrame.size.height + textViewFrame.origin.y, textViewFrame.size.width, repostTextViewFrame.size.height + nameLabelFrame.size.height + imageViewFrame.size.height + 25);
     const CGRect timeLabelFrame = CGRectMake(40, 5 + repostBackfroundImageViewFrame.size.height + repostBackfroundImageViewFrame.origin.y, 270, 20);
     
-    [self.textView setTextArray:dataModel.textData.parsedTextArray];
+    [self.textView setTextArray:dataModel.weiboData.textData.parsedTextArray];
     self.textView.frame = textViewFrame;
-    self.nameLabel.text = dataModel.repostUserName;
+    self.nameLabel.text = dataModel.weiboData.repostWeiboData.userName;
     self.nameLabel.frame = nameLabelFrame;
-    [self.repostTextView setTextArray:dataModel.repostTextData.parsedTextArray];
+    [self.repostTextView setTextArray:dataModel.weiboData.repostWeiboData.textData.parsedTextArray];
     self.repostTextView.frame = repostTextViewFrame;
     self.repostBackgroundImageView.frame = repostBackfroundImageViewFrame;
     self.picImageView.frame = imageViewFrame;
     // 加载图片:从缓存取或者异步加载 
-    if(dataModel.imageData.thumbnailPic)
-        self.picImageView.image = dataModel.imageData.thumbnailPic;
+    if(dataModel.weiboData.repostWeiboData.thumbnailImageData.image)
+        self.picImageView.image = dataModel.weiboData.repostWeiboData.thumbnailImageData.image;
     else
-        [[TPImageDownloadCenter sharedInstance] loadImageWithURL:dataModel.imageData.thumbnailPicURL Type:TPWeiboImageTypeThumbnail ViewDelegate:self ModelDelegate:dataModel ProgressDelegate:nil];
-    self.timeLabel.text = dataModel.time;
+        [[TPImageDownloadCenter sharedInstance] loadImageWithURL:dataModel.weiboData.repostWeiboData.thumbnailImageData.imageURL Type:TPWeiboImageTypeRepostThumbnail ViewDelegate:self ModelDelegate:dataModel ProgressDelegate:nil];
+    self.timeLabel.text = [[dataModel.weiboData.time description] substringToIndex:16];
     self.timeLabel.frame = timeLabelFrame;
 }
 

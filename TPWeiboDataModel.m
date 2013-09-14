@@ -12,11 +12,6 @@
  ------------------------------------*/
 @implementation TPWeiboTextData
 
--(void)parse
-{   
-    self.parsedTextArray = [TPWeiboTextParser textArrayWithRawString:self.text];
-    self.textSize = [TPWeiboTextParser sizeWithTextArray:self.parsedTextArray constrainsToSize:self.textSize Font:self.font];
-}
 @end
 
 /*-----------------------------------
@@ -25,6 +20,18 @@
 @implementation TPWeiboImageData
 
 
+@end
+
+/*-----------------------------------
+        UI数据:单条微博UI数据
+ ------------------------------------*/
+@implementation TPWeiboUIData
+
+@end
+/*-----------------------------------
+        微博数据:单条微博数据
+ ------------------------------------*/
+@implementation TPWeiboData
 @end
 
 /*-----------------------------------
@@ -42,29 +49,43 @@
 }
 
 -(void)setupWeiboDataModalWithDictionary:(NSDictionary *)dic
-{  
-    self.type = TPWeiboDataTypeText;
-    self.weiboId = [dic objectForKey:@"id"];
-    // 处理原文本
-    self.textData = [[TPWeiboTextData alloc] init];
-    self.textData.text = [dic objectForKey:@"text"];
-    self.textData.textSize = CGSizeMake(270.0, 100.0);
-    self.textData.font = [UIFont systemFontOfSize:16.0];
-    [self.textData parse];
+{
+    TPWeiboData *aWeiboData = [[TPWeiboData alloc] init];
+    TPWeiboUIData *aWeiboUIdata = [[TPWeiboUIData alloc] init];
+    self.weiboData = aWeiboData;
+    self.weiboUIData = aWeiboUIdata;
     
-    self.userName = [[dic objectForKey:@"user"] objectForKey:@"screen_name"];
-    NSDate *date=[self fdateFromString:[dic objectForKey:@"created_at"]];
-    self.time = [[date description] substringToIndex:16];
-    self.height += self.textData.textSize.height + 10;
+    aWeiboData.weiboId = [dic objectForKey:@"id"];  // 微博ID
+    aWeiboData.userName = [[dic objectForKey:@"user"] objectForKey:@"screen_name"];  // 用户昵称
+    NSDate *date=[self fdateFromString:[dic objectForKey:@"created_at"]];   
+    aWeiboData.time = date;     // 时间
+    
+    // 处理原文本
+    aWeiboData.textData = [[TPWeiboTextData alloc] init];
+    NSArray *aTextArray = [TPWeiboTextParser textArrayWithRawString:[dic objectForKey:@"text"]];
+    aWeiboData.textData.parsedTextArray = aTextArray;
+    aWeiboUIdata.font = [UIFont systemFontOfSize:16.0];
+    aWeiboUIdata.textSize = [TPWeiboTextParser sizeWithTextArray:aTextArray constrainsToSize:CGSizeMake(270.0, 100.0) Font:aWeiboUIdata.font];
+    
+    self.height += aWeiboUIdata.textSize.height + 10;
     
     // 原创文字+图片
     if([dic objectForKey:@"thumbnail_pic"])  
     {
+        // 处理图片URL
         self.type = TPWeiboDataTypeTextWithImage;
-        self.imageData = [[TPWeiboImageData alloc] init];
-        self.imageData.thumbnailPicURL = [dic objectForKey:@"thumbnail_pic"];
-        self.imageData.bmiddlePicURL = [dic objectForKey:@"bmiddle_pic"];
-        self.imageData.originalPicURL = [dic objectForKey:@"original_pic"];
+        TPWeiboImageData *aThumbnailImageData = [[TPWeiboImageData alloc] init];
+        TPWeiboImageData *aBmiddleImageData = [[TPWeiboImageData alloc] init];
+        TPWeiboImageData *aOriginalImageData = [[TPWeiboImageData alloc] init];
+        
+        aThumbnailImageData.imageURL = [dic objectForKey:@"thumbnail_pic"];
+        aBmiddleImageData.imageURL = [dic objectForKey:@"bmiddle_pic"];
+        aOriginalImageData.imageURL = [dic objectForKey:@"original_pic"];
+        
+        aWeiboData.thumbnailImageData = aThumbnailImageData;
+        aWeiboData.bmiddleImageData = aBmiddleImageData;
+        aWeiboData.originalImageData = aOriginalImageData;
+        
         self.height += 140;
     }
     else
@@ -72,30 +93,51 @@
         if([dic objectForKey:@"retweeted_status"])
         {
             NSDictionary *repostDic = [dic objectForKey:@"retweeted_status"];
-            // 处理转发文本
-            self.repostTextData = [[TPWeiboTextData alloc] init];
-            self.repostTextData.text = [repostDic objectForKey:@"text"];
-            self.repostTextData.textSize = CGSizeMake(250.0, 100.0);
-            self.repostTextData.font = [UIFont systemFontOfSize:15.0];
-            [self.repostTextData parse];
             
-            self.repostUserName = [[repostDic objectForKey:@"user"] objectForKey:@"screen_name"];
+            TPWeiboData *aRepostWeiboData = [[TPWeiboData alloc] init];
+            TPWeiboUIData *aRepostWeboUIData = [[TPWeiboUIData alloc] init];
+            aWeiboData.repostWeiboData = aRepostWeiboData;
+            aWeiboUIdata.repostWeiboUIdata = aRepostWeboUIData;
+            
+            // 处理转发数据
+            aRepostWeiboData.weiboId = [repostDic objectForKey:@"id"];  // 微博ID
+            aRepostWeiboData.userName = [[repostDic objectForKey:@"user"] objectForKey:@"screen_name"];  // 用户昵称
+            NSDate *date=[self fdateFromString:[repostDic objectForKey:@"created_at"]];
+            aRepostWeiboData.time = date;     // 时间
+            
+            // 转发文本
+            aRepostWeiboData.textData = [[TPWeiboTextData alloc] init];
+            NSArray *aTextArray = [TPWeiboTextParser textArrayWithRawString:[repostDic objectForKey:@"text"]];
+            aRepostWeiboData.textData.parsedTextArray = aTextArray;
+            // 转发文本UI
+            aRepostWeboUIData.font = [UIFont systemFontOfSize:15.0];
+            aRepostWeboUIData.textSize = [TPWeiboTextParser sizeWithTextArray:aTextArray constrainsToSize:CGSizeMake(250.0, 100.0) Font:aRepostWeboUIData.font];
+            
             
             // 转发文字+图片
             if([repostDic objectForKey:@"thumbnail_pic"])  
             {
+                // 处理转发图片URL
                 self.type = TPWeiboDataTypeRepostTextWithImage;
-                self.imageData = [[TPWeiboImageData alloc] init];
-                self.imageData.thumbnailPicURL = [repostDic objectForKey:@"thumbnail_pic"];
-                self.imageData.bmiddlePicURL = [repostDic objectForKey:@"bmiddle_pic"];
-                self.imageData.originalPicURL = [repostDic objectForKey:@"original_pic"];
-                self.height += self.repostTextData.textSize.height + 200;
+                TPWeiboImageData *aThumbnailImageData = [[TPWeiboImageData alloc] init];
+                TPWeiboImageData *aBmiddleImageData = [[TPWeiboImageData alloc] init];
+                TPWeiboImageData *aOriginalImageData = [[TPWeiboImageData alloc] init];
+                
+                aThumbnailImageData.imageURL = [repostDic objectForKey:@"thumbnail_pic"];
+                aBmiddleImageData.imageURL = [repostDic objectForKey:@"bmiddle_pic"];
+                aOriginalImageData.imageURL = [repostDic objectForKey:@"original_pic"];
+                
+                aRepostWeiboData.thumbnailImageData = aThumbnailImageData;
+                aRepostWeiboData.bmiddleImageData = aBmiddleImageData;
+                aRepostWeiboData.originalImageData = aOriginalImageData;
+                
+                self.height += aRepostWeboUIData.textSize.height + 200;
             }
             // 转发文字
             else
             {
                 self.type = TPWeiboDataTypeRepostText;
-                self.height += self.repostTextData.textSize.height + 80;
+                self.height += aRepostWeboUIData.textSize.height + 80;
             }
         }
         // 原创文字
@@ -126,13 +168,22 @@
 {
     switch (type) {
         case TPWeiboImageTypeThumbnail:
-            self.imageData.thumbnailPic = image;
+            self.weiboData.thumbnailImageData.image = image;
             break;
         case TPWeiboImageTypeBmiddle:
-            self.imageData.bmiddlePic = image;
+            self.weiboData.bmiddleImageData.image = image;
             break;
         case TPWeiboImageTypeOriginal:
-            self.imageData.originalPic = image;
+            self.weiboData.originalImageData.image = image;
+            break;
+        case TPWeiboImageTypeRepostThumbnail:
+            self.weiboData.repostWeiboData.thumbnailImageData.image = image;
+            break;
+        case TPWeiboImageTypeRepostBmiddle:
+            self.weiboData.repostWeiboData.bmiddleImageData.image = image;
+            break;
+        case TPWeiboImageTypeRepostOriginal:
+            self.weiboData.repostWeiboData.originalImageData.image = image;
             break;
         default:
             break;

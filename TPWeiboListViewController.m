@@ -51,7 +51,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TPWeiboDataModel *dataModel = [self.listData objectAtIndex:indexPath.row];
-    return dataModel.height;;
+    return dataModel.height;
 }
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
