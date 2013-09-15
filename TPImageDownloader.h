@@ -15,9 +15,6 @@ typedef enum
     TPWeiboImageTypeThumbnail,
     TPWeiboImageTypeBmiddle,
     TPWeiboImageTypeOriginal,
-    TPWeiboImageTypeRepostThumbnail,
-    TPWeiboImageTypeRepostBmiddle,
-    TPWeiboImageTypeRepostOriginal
 }
 TPWeiboImageType;
 

@@ -12,6 +12,12 @@
 #import "TPWeiboTextParser.h"
 #import "TPImageDownloader.h"
 
+#define kDefaultTextFont        [UIFont systemFontOfSize:16.0]
+#define kDefaultRepostTextFont  [UIFont systemFontOfSize:15.0]
+#define kDefaultTextSize        CGSizeMake(270.0, 100.0)
+#define kDefaultRepostTextSize  CGSizeMake(250.0, 100.0)
+#define kDefaultImageSize       CGSizeMake(100.0, 100.0)
+
 typedef enum
 {
     TPWeiboDataTypeText,                    // 原创文字
@@ -28,64 +34,29 @@ typedef enum
 }
 TPWeiboDataUserType;
 
-
-/*-----------------------------------
-        文本数据:解析后的文本结构
- ------------------------------------*/
-@interface TPWeiboTextData : NSObject
-
-@property (nonatomic,strong) NSArray *parsedTextArray;
-
-@end
-
-/*-----------------------------------
-    图片数据:包括图片地址和下载后的缓存
- ------------------------------------*/
-@interface TPWeiboImageData : NSObject
-
-@property (nonatomic,strong) NSString *imageURL;
-@property (nonatomic,strong) UIImage  *image;
-
-@end
-
-/*-----------------------------------
-        微博数据:单条微博数据
- ------------------------------------*/
-@interface TPWeiboData : NSObject
-
-@property (nonatomic,strong) NSString *weiboId;
-@property (nonatomic,strong) NSString *userName;
-@property (nonatomic,strong) NSDate *time;
-@property (nonatomic,strong) TPWeiboTextData *textData;
-@property (nonatomic,strong) TPWeiboImageData *thumbnailImageData;
-@property (nonatomic,strong) TPWeiboImageData *bmiddleImageData;
-@property (nonatomic,strong) TPWeiboImageData *originalImageData;
-@property (nonatomic,strong) TPWeiboData *repostWeiboData;  // self pointer
-
-@end
-
-/*-----------------------------------
-        UI数据:单条微博UI数据
- ------------------------------------*/
-@interface TPWeiboUIData : NSObject
-
-@property (nonatomic,strong) UIFont *font;
-@property (nonatomic,assign) CGSize textSize;
-@property (nonatomic,assign) CGSize imageSize;
-@property (nonatomic,strong) TPWeiboUIData * repostWeiboUIdata;
-
-@end
-
 /*-----------------------------------
             微博数据模型
  ------------------------------------*/
-@interface TPWeiboDataModel : NSObject<TPAbstractModelDelegate>
+@interface TPWeiboDataModel : NSObject<TPAbstractModelDelegate,NSCoding,NSCopying>
 
-@property (nonatomic,strong) TPWeiboData *weiboData;
-@property (nonatomic,strong) TPWeiboUIData *weiboUIData;
+@property (nonatomic,strong) NSString *weiboId;
+@property (nonatomic,strong) NSString *userName;
+@property (nonatomic,strong) NSString *repostUserName;
+@property (nonatomic,strong) NSDate *time;
+@property (nonatomic,strong) NSArray *textArray;
+@property (nonatomic,strong) NSArray *repostTextArray;
+@property (nonatomic,strong) NSString *thumbnailImageURL;
+@property (nonatomic,strong) NSString *bmiddleImageURL;
+@property (nonatomic,strong) NSString *originalImageURL;
+@property (nonatomic,strong) UIImage  *thumbnailImage;
+@property (nonatomic,strong) UIImage  *bmiddleImage;
+@property (nonatomic,strong) UIImage  *originalImage;
+@property (nonatomic,assign) CGSize textSize;
+@property (nonatomic,assign) CGSize repostTextSize;
+@property (nonatomic,assign) CGSize imageSize;
 @property (nonatomic,assign) TPWeiboDataType type;
 @property (nonatomic,assign) TPWeiboDataUserType userType;
-@property (nonatomic,assign) CGFloat height;
+@property (nonatomic,assign) CGFloat rowHeight;
 
 -(id)initWithDictionary:(NSDictionary *)dic;
 

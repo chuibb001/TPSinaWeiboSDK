@@ -51,7 +51,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     TPWeiboDataModel *dataModel = [self.listData objectAtIndex:indexPath.row];
-    return dataModel.height;
+    return dataModel.rowHeight;
 }
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -116,6 +116,14 @@
         }
     return nil; 
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // test
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self.listData];
+    TPWeiboDataModel *test = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    NSLog(@"AAA%@",test);
+    
+}
 #pragma mark private
 -(void)loadWeibo
 {
@@ -136,7 +144,7 @@
         {
             NSDictionary *status = [statuses objectAtIndex:i];
             TPWeiboDataModel *dataModel = [[TPWeiboDataModel alloc] initWithDictionary:status];
-            [self.listData addObject:dataModel];
+            [self.listData addObject:dataModel];       
         }
         [self.weiboTableView reloadData];
     }

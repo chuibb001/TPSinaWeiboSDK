@@ -7,32 +7,6 @@
 //
 
 #import "TPWeiboDataModel.h"
-/*-----------------------------------
-    文本数据:包括raw文本和解析后的结构
- ------------------------------------*/
-@implementation TPWeiboTextData
-
-@end
-
-/*-----------------------------------
-    图片数据:包括图片地址和下载后的缓存
- ------------------------------------*/
-@implementation TPWeiboImageData
-
-
-@end
-
-/*-----------------------------------
-        UI数据:单条微博UI数据
- ------------------------------------*/
-@implementation TPWeiboUIData
-
-@end
-/*-----------------------------------
-        微博数据:单条微博数据
- ------------------------------------*/
-@implementation TPWeiboData
-@end
 
 /*-----------------------------------
             微博数据模型
@@ -50,43 +24,31 @@
 
 -(void)setupWeiboDataModalWithDictionary:(NSDictionary *)dic
 {
-    TPWeiboData *aWeiboData = [[TPWeiboData alloc] init];
-    TPWeiboUIData *aWeiboUIdata = [[TPWeiboUIData alloc] init];
-    self.weiboData = aWeiboData;
-    self.weiboUIData = aWeiboUIdata;
-    
-    aWeiboData.weiboId = [dic objectForKey:@"id"];  // 微博ID
-    aWeiboData.userName = [[dic objectForKey:@"user"] objectForKey:@"screen_name"];  // 用户昵称
+    self.weiboId = [dic objectForKey:@"id"];  // 微博ID
+    self.userName = [[dic objectForKey:@"user"] objectForKey:@"screen_name"];  // 用户昵称
     NSDate *date=[self fdateFromString:[dic objectForKey:@"created_at"]];   
-    aWeiboData.time = date;     // 时间
+    self.time = date;     // 时间
     
     // 处理原文本
-    aWeiboData.textData = [[TPWeiboTextData alloc] init];
     NSArray *aTextArray = [TPWeiboTextParser textArrayWithRawString:[dic objectForKey:@"text"]];
-    aWeiboData.textData.parsedTextArray = aTextArray;
-    aWeiboUIdata.font = [UIFont systemFontOfSize:16.0];
-    aWeiboUIdata.textSize = [TPWeiboTextParser sizeWithTextArray:aTextArray constrainsToSize:CGSizeMake(270.0, 100.0) Font:aWeiboUIdata.font];
+    self.textArray = aTextArray;
+    self.textSize = [TPWeiboTextParser sizeWithTextArray:aTextArray constrainsToSize:kDefaultTextSize Font:kDefaultTextFont];
     
-    self.height += aWeiboUIdata.textSize.height + 10;
+    self.rowHeight += self.textSize.height + 10;
     
-    // 原创文字+图片
+    /*-----------------------------------
+                1:原创文字+图片
+     -----------------------------------*/
     if([dic objectForKey:@"thumbnail_pic"])  
     {
         // 处理图片URL
         self.type = TPWeiboDataTypeTextWithImage;
-        TPWeiboImageData *aThumbnailImageData = [[TPWeiboImageData alloc] init];
-        TPWeiboImageData *aBmiddleImageData = [[TPWeiboImageData alloc] init];
-        TPWeiboImageData *aOriginalImageData = [[TPWeiboImageData alloc] init];
         
-        aThumbnailImageData.imageURL = [dic objectForKey:@"thumbnail_pic"];
-        aBmiddleImageData.imageURL = [dic objectForKey:@"bmiddle_pic"];
-        aOriginalImageData.imageURL = [dic objectForKey:@"original_pic"];
+        self.thumbnailImageURL = [dic objectForKey:@"thumbnail_pic"];
+        self.bmiddleImageURL = [dic objectForKey:@"bmiddle_pic"];
+        self.originalImageURL = [dic objectForKey:@"original_pic"];
         
-        aWeiboData.thumbnailImageData = aThumbnailImageData;
-        aWeiboData.bmiddleImageData = aBmiddleImageData;
-        aWeiboData.originalImageData = aOriginalImageData;
-        
-        self.height += 140;
+        self.rowHeight += 140;
     }
     else
     {
@@ -94,57 +56,46 @@
         {
             NSDictionary *repostDic = [dic objectForKey:@"retweeted_status"];
             
-            TPWeiboData *aRepostWeiboData = [[TPWeiboData alloc] init];
-            TPWeiboUIData *aRepostWeboUIData = [[TPWeiboUIData alloc] init];
-            aWeiboData.repostWeiboData = aRepostWeiboData;
-            aWeiboUIdata.repostWeiboUIdata = aRepostWeboUIData;
-            
             // 处理转发数据
-            aRepostWeiboData.weiboId = [repostDic objectForKey:@"id"];  // 微博ID
-            aRepostWeiboData.userName = [[repostDic objectForKey:@"user"] objectForKey:@"screen_name"];  // 用户昵称
-            NSDate *date=[self fdateFromString:[repostDic objectForKey:@"created_at"]];
-            aRepostWeiboData.time = date;     // 时间
+            self.repostUserName = [[repostDic objectForKey:@"user"] objectForKey:@"screen_name"];  // 用户昵称
             
             // 转发文本
-            aRepostWeiboData.textData = [[TPWeiboTextData alloc] init];
             NSArray *aTextArray = [TPWeiboTextParser textArrayWithRawString:[repostDic objectForKey:@"text"]];
-            aRepostWeiboData.textData.parsedTextArray = aTextArray;
+            self.repostTextArray = aTextArray;
+            
             // 转发文本UI
-            aRepostWeboUIData.font = [UIFont systemFontOfSize:15.0];
-            aRepostWeboUIData.textSize = [TPWeiboTextParser sizeWithTextArray:aTextArray constrainsToSize:CGSizeMake(250.0, 100.0) Font:aRepostWeboUIData.font];
+            self.repostTextSize = [TPWeiboTextParser sizeWithTextArray:aTextArray constrainsToSize:kDefaultRepostTextSize Font:kDefaultRepostTextFont];
             
-            
-            // 转发文字+图片
+            /*-----------------------------------
+                       3:转发文字+图片
+             -----------------------------------*/
             if([repostDic objectForKey:@"thumbnail_pic"])  
             {
                 // 处理转发图片URL
                 self.type = TPWeiboDataTypeRepostTextWithImage;
-                TPWeiboImageData *aThumbnailImageData = [[TPWeiboImageData alloc] init];
-                TPWeiboImageData *aBmiddleImageData = [[TPWeiboImageData alloc] init];
-                TPWeiboImageData *aOriginalImageData = [[TPWeiboImageData alloc] init];
                 
-                aThumbnailImageData.imageURL = [repostDic objectForKey:@"thumbnail_pic"];
-                aBmiddleImageData.imageURL = [repostDic objectForKey:@"bmiddle_pic"];
-                aOriginalImageData.imageURL = [repostDic objectForKey:@"original_pic"];
+                self.thumbnailImageURL = [repostDic objectForKey:@"thumbnail_pic"];
+                self.bmiddleImageURL = [repostDic objectForKey:@"bmiddle_pic"];
+                self.originalImageURL = [repostDic objectForKey:@"original_pic"];
                 
-                aRepostWeiboData.thumbnailImageData = aThumbnailImageData;
-                aRepostWeiboData.bmiddleImageData = aBmiddleImageData;
-                aRepostWeiboData.originalImageData = aOriginalImageData;
-                
-                self.height += aRepostWeboUIData.textSize.height + 200;
+                self.rowHeight += self.repostTextSize.height + 200;
             }
-            // 转发文字
+            /*-----------------------------------
+                            2:转发文字
+             -----------------------------------*/
             else
             {
                 self.type = TPWeiboDataTypeRepostText;
-                self.height += aRepostWeboUIData.textSize.height + 80;
+                self.rowHeight += self.repostTextSize.height + 80;
             }
         }
-        // 原创文字
-        else    
+        /*-----------------------------------
+                    0:原创文字
+         -----------------------------------*/
+        else
         {
             self.type = TPWeiboDataTypeText;
-            self.height += 35;
+            self.rowHeight += 35;
         }
     }
 }
@@ -168,25 +119,81 @@
 {
     switch (type) {
         case TPWeiboImageTypeThumbnail:
-            self.weiboData.thumbnailImageData.image = image;
+            self.thumbnailImage = image;
             break;
         case TPWeiboImageTypeBmiddle:
-            self.weiboData.bmiddleImageData.image = image;
+            self.bmiddleImage = image;
             break;
         case TPWeiboImageTypeOriginal:
-            self.weiboData.originalImageData.image = image;
-            break;
-        case TPWeiboImageTypeRepostThumbnail:
-            self.weiboData.repostWeiboData.thumbnailImageData.image = image;
-            break;
-        case TPWeiboImageTypeRepostBmiddle:
-            self.weiboData.repostWeiboData.bmiddleImageData.image = image;
-            break;
-        case TPWeiboImageTypeRepostOriginal:
-            self.weiboData.repostWeiboData.originalImageData.image = image;
+            self.originalImage = image;
             break;
         default:
             break;
     }
+}
+
+#define kTPWeiboDataModelWeiboIdKey @"kTPWeiboDataModelWeiboIdKey"
+#define kTPWeiboDataModelUserNameKey @"kTPWeiboDataModelUserNameKey"
+#define kTPWeiboDataModelRepostUserNameKey @"kTPWeiboDataModelRepostUserNameKey"
+#define kTPWeiboDataModelTimeKey @"kTPWeiboDataModelTimeKey"
+#define kTPWeiboDataModelTextArrayKey @"kTPWeiboDataModelTextArrayKey"
+#define kTPWeiboDataModelRepostTextArrayKey @"kTPWeiboDataModelRepostTextArrayKey"
+#define kTPWeiboDataModelThumbnailImageURLKey @"kTPWeiboDataModelThumbnailImageURLKey"
+#define kTPWeiboDataModelBmiddleImageURLKey @"kTPWeiboDataModelBmiddleImageURLKey"
+#define kTPWeiboDataModelOriginalImageURLKey @"kTPWeiboDataModelOriginalImageURLKey"
+#define kTPWeiboDataModelThumbnailImageKey @"kTPWeiboDataModelThumbnailImageKey"
+#define kTPWeiboDataModelBmiddleImageKey @"kTPWeiboDataModelBmiddleImageKey"
+#define kTPWeiboDataModelOriginalImageKey @"kTPWeiboDataModelOriginalImageKey"
+#define kTPWeiboDataModelTextSizeKey @"kTPWeiboDataModelTextSizeKey"
+#define kTPWeiboDataModelRepostTextSizeKey @"kTPWeiboDataModelRepostTextSizeKey"
+#define kTPWeiboDataModelImageSizeKey @"kTPWeiboDataModelImageSizeKey"
+#define kTPWeiboDataModelTypeKey @"kTPWeiboDataModelTypeKey"
+#define kTPWeiboDataModelUserTypeKey @"kTPWeiboDataModelUserTypeKey"
+#define kTPWeiboDataModelRowHeightKey @"kTPWeiboDataModelRowHeightKey"
+
+-(void)encodeWithCoder:(NSCoder *)aCoder
+{
+    [aCoder encodeObject:self.weiboId forKey:kTPWeiboDataModelWeiboIdKey];
+    [aCoder encodeObject:self.userName forKey:kTPWeiboDataModelUserNameKey];
+    [aCoder encodeObject:self.repostUserName forKey:kTPWeiboDataModelRepostUserNameKey];
+    [aCoder encodeObject:self.time forKey:kTPWeiboDataModelTimeKey];
+    [aCoder encodeObject:self.textArray forKey:kTPWeiboDataModelTextArrayKey];
+    [aCoder encodeObject:self.repostTextArray forKey:kTPWeiboDataModelRepostTextArrayKey];
+    [aCoder encodeObject:self.thumbnailImageURL forKey:kTPWeiboDataModelThumbnailImageURLKey];
+    [aCoder encodeObject:self.bmiddleImageURL forKey:kTPWeiboDataModelBmiddleImageURLKey];
+    [aCoder encodeObject:self.originalImageURL forKey:kTPWeiboDataModelOriginalImageURLKey];
+    [aCoder encodeObject:self.thumbnailImage forKey:kTPWeiboDataModelThumbnailImageKey];
+    [aCoder encodeObject:self.bmiddleImage forKey:kTPWeiboDataModelBmiddleImageKey];
+    [aCoder encodeObject:self.originalImage forKey:kTPWeiboDataModelOriginalImageKey];
+    [aCoder encodeCGSize:self.textSize forKey:kTPWeiboDataModelTextSizeKey];
+    [aCoder encodeCGSize:self.repostTextSize forKey:kTPWeiboDataModelRepostTextSizeKey];
+    [aCoder encodeCGSize:self.imageSize forKey:kTPWeiboDataModelImageSizeKey];
+    [aCoder encodeInteger:self.type forKey:kTPWeiboDataModelTypeKey];
+    [aCoder encodeInteger:self.userType forKey:kTPWeiboDataModelUserTypeKey];
+    [aCoder encodeFloat:self.rowHeight forKey:kTPWeiboDataModelRowHeightKey];
+    
+}
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    self.weiboId = [aDecoder decodeObjectForKey:kTPWeiboDataModelWeiboIdKey];
+    self.userName = [aDecoder decodeObjectForKey:kTPWeiboDataModelUserNameKey];
+    self.repostUserName = [aDecoder decodeObjectForKey:kTPWeiboDataModelRepostUserNameKey];
+    self.time = [aDecoder decodeObjectForKey:kTPWeiboDataModelTimeKey];
+    self.textArray = [aDecoder decodeObjectForKey:kTPWeiboDataModelTextArrayKey];
+    self.repostTextArray = [aDecoder decodeObjectForKey:kTPWeiboDataModelRepostTextArrayKey];
+    self.thumbnailImageURL = [aDecoder decodeObjectForKey:kTPWeiboDataModelThumbnailImageURLKey];
+    self.bmiddleImageURL = [aDecoder decodeObjectForKey:kTPWeiboDataModelBmiddleImageURLKey];
+    self.originalImageURL = [aDecoder decodeObjectForKey:kTPWeiboDataModelOriginalImageURLKey];
+    self.thumbnailImage = [aDecoder decodeObjectForKey:kTPWeiboDataModelThumbnailImageKey];
+    self.bmiddleImage = [aDecoder decodeObjectForKey:kTPWeiboDataModelBmiddleImageKey];
+    self.originalImage = [aDecoder decodeObjectForKey:kTPWeiboDataModelOriginalImageKey];
+    self.textSize = [aDecoder decodeCGSizeForKey:kTPWeiboDataModelTextSizeKey];
+    self.repostTextSize = [aDecoder decodeCGSizeForKey:kTPWeiboDataModelRepostTextSizeKey];
+    self.imageSize = [aDecoder decodeCGSizeForKey:kTPWeiboDataModelImageSizeKey];
+    self.type = [aDecoder decodeIntegerForKey:kTPWeiboDataModelTypeKey];
+    self.userType = [aDecoder decodeIntegerForKey:kTPWeiboDataModelUserTypeKey];
+    self.rowHeight = [aDecoder decodeFloatForKey:kTPWeiboDataModelRowHeightKey];
+    
+    return self;
 }
 @end
